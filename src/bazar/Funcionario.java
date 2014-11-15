@@ -19,7 +19,7 @@ public class Funcionario {
     private String telefone;
     private String celular;
     private String descricao;
-    private String status;
+    private Integer status;
     private Perfil cargo;
     private Endereco endereco;
 
@@ -161,14 +161,14 @@ public class Funcionario {
     /**
      * @return the status
      */
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
