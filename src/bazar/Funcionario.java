@@ -21,9 +21,11 @@ public class Funcionario {
     private String descricao;
     private String status;
     private Perfil cargo;
+    private Endereco endereco;
 
     public Funcionario() {
         this.cargo = new Perfil();
+        this.endereco = new Endereco();
     }
     
     
@@ -168,5 +170,33 @@ public class Funcionario {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the cargo
+     */
+    public Perfil getCargo() {
+        return cargo;
+    }
+
+    /**
+     * @param cargo the cargo to set
+     */
+    public void setCargo(Perfil cargo) {
+        this.cargo = cargo;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }
