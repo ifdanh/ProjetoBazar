@@ -20,7 +20,16 @@ public class Funcionario {
     private String celular;
     private String descricao;
     private String status;
+    private Perfil cargo;
 
+    public Funcionario() {
+        this.cargo = new Perfil();
+    }
+    
+    
+    
+    
+    
     /**
      * @return the codigo
      */
