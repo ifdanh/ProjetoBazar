@@ -21,7 +21,15 @@ public class Cliente {
     private String celular;
     private String nascimento;
     private String descricao;
-    private int status;
+    private Integer status;
+     private Endereco endereco;
+
+    public Cliente() {
+     this.endereco = new Endereco();
+    }
+     
+     
+     
 
     /**
      * @return the codigo
@@ -180,15 +188,29 @@ public class Cliente {
     /**
      * @return the status
      */
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
     
 }
