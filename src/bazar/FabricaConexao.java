@@ -26,7 +26,7 @@ import java.sql.SQLException;
         if (con == null) {
             try {
                 
-                con = DriverManager.getConnection("jdbc:mysql://localhost/db_bazar","root","");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/db_bazar","root","oitk7nk7");
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
