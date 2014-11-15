@@ -10,5 +10,7 @@ package bazar;
  * @author danilo
  */
 public class Cliente {
+    String g;
+    String x;
     
 }
