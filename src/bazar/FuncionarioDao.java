@@ -134,7 +134,7 @@ public class FuncionarioDao {
     
     public List<Funcionario> selecionarTodos(){
         List<Funcionario> listaf = new ArrayList();
-        String sql = "SELECT * FROM Funcionario WHERE status = 1";
+        String sql = "SELECT * FROM Funcionario";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);
