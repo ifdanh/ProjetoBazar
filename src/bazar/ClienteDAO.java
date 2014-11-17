@@ -55,6 +55,7 @@ public class ClienteDAO {
                 + "status=?,descricao=?,fk_endereco =?)"
                 + " WHERE codigo = ?";
         try {
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getSobrenome());
