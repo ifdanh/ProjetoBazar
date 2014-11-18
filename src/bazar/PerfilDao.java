@@ -117,8 +117,7 @@ public class PerfilDao {
         return listap;
     }
     
-    
-   private Perfil populaperfil(ResultSet linha){
+    private Perfil populaperfil(ResultSet linha){
        Perfil p = new Perfil();
        try {
            p.setFuncao(linha.getString("funcao"));
