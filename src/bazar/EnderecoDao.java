@@ -68,7 +68,7 @@ public class EnderecoDao {
     }
     
     public void deletar(Endereco endereco){
-        String sql = "DELETE FROM Perfil WHERE codigo = ?";
+        String sql = "DELETE FROM Endereco WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, endereco.getCodigo());

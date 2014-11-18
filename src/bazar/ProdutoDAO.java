@@ -51,7 +51,7 @@ public class ProdutoDAO {
                 + "valorvenda= ?,"
                 + "estoquemin= ?,"
                 + "estoque= ?,"
-                + "status= ?,"
+                + "status= ?"
                 + "fk_categoria = ? WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -84,22 +84,13 @@ public class ProdutoDAO {
 
     public List<Produto> selecionarTodos(boolean ativos) {
         List<Produto> listap = new ArrayList();
+        String sql;
         if (ativos) {
-            String sql = "SELECT * FROM Produto WHERE status = 1";
-            try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(sql);
-
-                while (rs.next()) {
-                    listap.add(populaproduto(rs));
-                }
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            sql = "SELECT * FROM Produto WHERE status = 1";
         } else {
-            String sql = "SELECT * FROM Produto WHERE status = 0";
-            try {
+            sql = "SELECT * FROM Produto WHERE status = 0";
+        }
+        try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);
 
@@ -110,8 +101,6 @@ public class ProdutoDAO {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
-
         return listap;
     }
 

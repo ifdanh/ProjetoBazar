@@ -41,7 +41,7 @@ public class PerfilDao {
     public void alterar(Perfil perfil){
         String sql = "UPDATE Perfil set "
                 + "funcao = ?,"
-                + "status = ?,"
+                + "status = ?"
                 + " WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -69,22 +69,14 @@ public class PerfilDao {
     
     public List<Perfil> selecionarTodos(boolean ativos){
         List<Perfil> listap = new ArrayList();
+        String sql;
         if (ativos) {
-            String sql = "SELECT * FROM Perfil WHERE status = 1";
-            try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(sql);
-                
-                while (rs.next()) {                    
-                    listap.add(populaperfil(rs));
-                }
-                
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            sql = "SELECT * FROM Perfil WHERE status = 1";
         }else{
-            String sql = "SELECT * FROM Perfil WHERE status = 0";
-            try {
+            sql = "SELECT * FROM Perfil WHERE status = 0";  
+        }
+        
+        try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);
                 
@@ -95,7 +87,6 @@ public class PerfilDao {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
         
         return listap;
     }

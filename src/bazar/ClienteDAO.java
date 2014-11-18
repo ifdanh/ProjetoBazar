@@ -53,9 +53,18 @@ public class ClienteDAO {
 
     public void alterar(Cliente cliente) {
         String sql = "UPDATE Cliente set "
-                + "nome=?,sobrenome=?,genero=?,cpf=?,rg=?,"
-                + "email=?,telefone=?,celular=?,nascimento=?,"
-                + "status=?,descricao=?,fk_endereco =?)"
+                + "nome=?,"
+                + "sobrenome=?,"
+                + "genero=?,"
+                + "cpf=?,"
+                + "rg=?,"
+                + "email=?,"
+                + "telefone=?,"
+                + "celular=?,"
+                + "nascimento=?,"
+                + "status=?,"
+                + "descricao=?,"
+                + "fk_endereco =?"
                 + " WHERE codigo = ?";
         try {
 
@@ -110,22 +119,13 @@ public class ClienteDAO {
 
     public List<Cliente> selecionarTodos(boolean ativos) {
         List<Cliente> listac = new ArrayList();
+        String sql;
         if (ativos) {
-            String sql = "SELECT * FROM Cliente WHERE status = 1";
-            try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(sql);
-
-                while (rs.next()) {
-                    listac.add(populacliente(rs));
-                }
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            sql = "SELECT * FROM Cliente WHERE status = 1";
         } else {
-            String sql = "SELECT * FROM Cliente WHERE status = 0";
-            try {
+            sql = "SELECT * FROM Cliente WHERE status = 0";
+        }
+        try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);
 
@@ -136,8 +136,6 @@ public class ClienteDAO {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
-
         return listac;
     }
 

@@ -101,22 +101,13 @@ public class FuncionarioDao {
     
     public List<Funcionario> selecionarTodos(boolean ativos){
         List<Funcionario> listaf = new ArrayList();
+        String sql;
         if (ativos) {
-            String sql = "SELECT * FROM Funcionario WHERE status = 1";
-            try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(sql);
-                
-                while (rs.next()) {                    
-                    listaf.add(populafuncionario(rs));
-                }
-                
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            sql = "SELECT * FROM Funcionario WHERE status = 1";
         }else{
-            String sql = "SELECT * FROM Funcionario WHERE status = 0";
-            try {
+           sql = "SELECT * FROM Funcionario WHERE status = 0";
+        }
+        try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);
                 
@@ -127,7 +118,6 @@ public class FuncionarioDao {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
         
         return listaf;
     }

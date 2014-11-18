@@ -24,10 +24,10 @@ public class CategoriaDAO {
         con = FabricaConexao.pegaConexao();
     }
 
-    public void Salvar(Categoria categoria) {
+    public void salvar(Categoria categoria) {
         String sql = "INSERT INTO Categoria ("
                 + "nome,"
-                + "status"
+                + "status)"
                 + " VALUES (?,?)";
 
         try {
@@ -41,9 +41,9 @@ public class CategoriaDAO {
 
     }
 
-    public void Alterar(Categoria categoria) {
+    public void alterar(Categoria categoria) {
 
-        String sql = "UPDATE Categoria SET"
+        String sql = "UPDATE Categoria SET "
                 + "nome=?,"
                 + "status=?"
                 + " WHERE codigo=?";
@@ -61,7 +61,7 @@ public class CategoriaDAO {
 
     }
 
-    public void Deletar(Categoria categoria) {
+    public void deletar(Categoria categoria) {
 
         String sql = "DELETE FROM Categoria WHERE codigo=?";
 
@@ -94,34 +94,23 @@ public class CategoriaDAO {
 
     public List<Categoria> selecionarTodos(boolean ativos) {
         List<Categoria> listac = new ArrayList();
+        String sql;
         if (ativos) {
-            String sql = "SELECT * FROM Categoria WHERE status = 1";
-            try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(sql);
-
-                while (rs.next()) {
-                    listac.add(populacategoria(rs));
-                }
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            sql = "SELECT * FROM Categoria WHERE status = 1";
         } else {
-            String sql = "SELECT * FROM Categoria WHERE status = 0";
-            try {
+            sql = "SELECT * FROM Categoria WHERE status = 0";
+        }
+        try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);
 
                 while (rs.next()) {
                     listac.add(populacategoria(rs));
                 }
-
+                
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
-
         return listac;
     }
 
