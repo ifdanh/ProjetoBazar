@@ -5,7 +5,6 @@
  */
 package forms;
 
-
 /**
  *
  * @author dan0001
@@ -17,8 +16,7 @@ public class Clientes extends javax.swing.JInternalFrame {
      */
     public Clientes() {
         initComponents();
-        
-        
+
     }
 
     /**
@@ -39,11 +37,19 @@ public class Clientes extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
 
+        setClosable(true);
+        setMaximizable(true);
+        setMaximumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 72, 1026, 10);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(10, 11, 160, 55);
 
@@ -73,8 +79,13 @@ public class Clientes extends javax.swing.JInternalFrame {
         getContentPane().add(jSeparator2);
         jSeparator2.setBounds(0, 601, 1026, 20);
 
-        pack();
+        setBounds(0, 0, 1024, 659);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CadastroCliente objCadastro = new CadastroCliente();
+        objCadastro.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

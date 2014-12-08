@@ -5,6 +5,9 @@
  */
 package bazar;
 
+import forms.CadastroCliente;
+import forms.TelaPrincipal;
+
 /**
  *
  * @author danilo
@@ -15,7 +18,11 @@ public class Bazar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        forms.TelaPrincipal objTelaPrin = new TelaPrincipal();
+        objTelaPrin.setVisible(true);
+        
+//        forms.CadastroCliente objCadastro = new CadastroCliente();       
+//        objCadastro.setVisible(true);
     }
     
 }
