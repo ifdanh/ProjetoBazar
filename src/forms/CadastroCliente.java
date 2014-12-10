@@ -5,6 +5,8 @@
  */
 package forms;
 
+import bazar.Cliente;
+import bazar.Endereco;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -58,13 +60,35 @@ public class CadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo Telefone devem ser preenchidos\nCheque o campo e tente novamente!");
 
         }
+        if("Sexo".equals(cbGenero.getName())){
+        JOptionPane.showMessageDialog(null, "Campo Genero devem ser preenchidos\nCheque o campo e tente novamente!");
+        }
 
     }
-    
-    
-     
-    
-    
+
+    private void v() {
+        bazar.Cliente objCliente = new Cliente();
+        //Cliente
+        objCliente.setNome(txtNome.getText());
+        objCliente.setSobrenome(txtSobrenome.getText());
+        objCliente.setTelefone(txtTelefone.getText());
+        objCliente.setCelular(txtCelular.getText());
+        objCliente.setEmail(txtEmail.getText());
+        objCliente.setNascimento(Calendario.getDateFormatString());
+        objCliente.setCpf(txtCpf.getText());
+        objCliente.setRg(txtRg.getText());
+        objCliente.setDescricao(txtDescricao.getText());
+       
+        
+        //Endereço
+        bazar.Endereco objEndereco = new Endereco();
+        objEndereco.setCep(txtCep.getText());
+        objEndereco.setRua(txtRua.getText());
+        objEndereco.setBairro(txtBairro.getText());
+        objEndereco.setCidade(txtCidade.getText());
+        objEndereco.setNumero(Integer.parseInt(txtNumero.getText()));        
+        objEndereco.setComplemento(txtComple.getText());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -438,6 +462,9 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ValidaCampos();
+        v();
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

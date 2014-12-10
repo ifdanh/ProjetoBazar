@@ -19,11 +19,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        
 
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,12 +110,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
 
-        Clientes objCliente = new Clientes();
-                                                        
-         
-            jPanel1.add(objCliente);  
-             objCliente.setVisible(true);       
-             
+        Clientes objCliente = null;
+     
+        if (objCliente == null) {
+            objCliente = new Clientes();
+            jPanel1.remove(objCliente);
+            jPanel1.add(objCliente);
+            objCliente.setVisible(true);
+        }
+
 
     }//GEN-LAST:event_btnClienteActionPerformed
 

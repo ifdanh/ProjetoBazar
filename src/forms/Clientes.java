@@ -53,11 +53,11 @@ public class Clientes extends javax.swing.JInternalFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(10, 11, 160, 55);
 
-        jButton2.setText("jButton1");
+        jButton2.setText("Alterar");
         getContentPane().add(jButton2);
         jButton2.setBounds(176, 11, 160, 55);
 
-        jButton3.setText("jButton1");
+        jButton3.setText("Deletar");
         getContentPane().add(jButton3);
         jButton3.setBounds(342, 11, 160, 55);
 
