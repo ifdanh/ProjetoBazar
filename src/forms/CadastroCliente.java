@@ -6,8 +6,12 @@
 package forms;
 
 import bazar.Cliente;
+import bazar.ClienteDAO;
 import bazar.Endereco;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,33 +25,35 @@ public class CadastroCliente extends javax.swing.JFrame {
      */
     public CadastroCliente() {
         initComponents();
+        Calendario.setDateFormatString("yyyy-MM-dd");
     }
-
-    private void ValidaCampos() {
+    
+    
+    private Boolean ValidaCampos() {
         if (txtNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Nome devem ser preenchidos\nCheque o campo e tente novamente!", "Alerta", JOptionPane.WARNING_MESSAGE);
 
             txtNome.requestFocus();
             txtNome.setBackground(Color.yellow);
-            return;
+            return false;
         }
         if (txtSobrenome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Sobrenome devem ser preenchidos\nCheque o campo e tente novamente!", "Alerta", JOptionPane.WARNING_MESSAGE);
             txtSobrenome.requestFocus();
             txtSobrenome.setBackground(Color.yellow);
-            return;
+            return false;
         }
         if (txtCpf.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo CPF devem ser preenchidos\nCheque o campo e tente novamente!", "Alerta", JOptionPane.WARNING_MESSAGE);
             txtCpf.requestFocus();
             txtCpf.setBackground(Color.yellow);
-            return;
+            return false;
         }
         if (txtRg.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo RG devem ser preenchidos\nCheque o campo e tente novamente!", "Alerta", JOptionPane.WARNING_MESSAGE);
             txtRg.requestFocus();
             txtRg.setBackground(Color.yellow);
-            return;
+            return false;
         }
 
         String celular = txtTelefone.getText();
@@ -60,35 +66,10 @@ public class CadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo Telefone devem ser preenchidos\nCheque o campo e tente novamente!");
 
         }
-        if("Sexo".equals(cbGenero.getName())){
-        JOptionPane.showMessageDialog(null, "Campo Genero devem ser preenchidos\nCheque o campo e tente novamente!");
-        }
 
+        return true;
     }
 
-    private void v() {
-        bazar.Cliente objCliente = new Cliente();
-        //Cliente
-        objCliente.setNome(txtNome.getText());
-        objCliente.setSobrenome(txtSobrenome.getText());
-        objCliente.setTelefone(txtTelefone.getText());
-        objCliente.setCelular(txtCelular.getText());
-        objCliente.setEmail(txtEmail.getText());
-        objCliente.setNascimento(Calendario.getDateFormatString());
-        objCliente.setCpf(txtCpf.getText());
-        objCliente.setRg(txtRg.getText());
-        objCliente.setDescricao(txtDescricao.getText());
-       
-        
-        //Endereço
-        bazar.Endereco objEndereco = new Endereco();
-        objEndereco.setCep(txtCep.getText());
-        objEndereco.setRua(txtRua.getText());
-        objEndereco.setBairro(txtBairro.getText());
-        objEndereco.setCidade(txtCidade.getText());
-        objEndereco.setNumero(Integer.parseInt(txtNumero.getText()));        
-        objEndereco.setComplemento(txtComple.getText());
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,7 +81,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField8 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtEmail = new javax.swing.JTextField();
@@ -147,11 +128,11 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Courier Pitch", 1, 14)); // NOI18N
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setFont(new java.awt.Font("Courier Pitch", 1, 14)); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -203,7 +184,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        cbGenero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sexo", "Masculino", "Feminino" }));
+        cbGenero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 
         jScrollPane1.setViewportView(txtDescricao);
 
@@ -394,12 +375,13 @@ public class CadastroCliente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17)
-                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18)))
+                            .addComponent(jLabel18))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,7 +411,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
@@ -449,7 +431,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnCadastrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -460,12 +442,53 @@ public class CadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbEstadoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ValidaCampos();
-        v();
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if(ValidaCampos()){
+        
+
+            bazar.Cliente objCliente = new Cliente();
+            //Cliente
+            objCliente.setNome(txtNome.getText());
+            objCliente.setSobrenome(txtSobrenome.getText());
+            objCliente.setTelefone(txtTelefone.getText());
+            objCliente.setCelular(txtCelular.getText());
+            objCliente.setEmail(txtEmail.getText());
+            objCliente.setNascimento(Calendario.getDate());
+            objCliente.setCpf(txtCpf.getText());
+            objCliente.setRg(txtRg.getText());
+            objCliente.setDescricao(txtDescricao.getText());
+            objCliente.setGenero(cbGenero.getSelectedItem().toString());
+            
+            if (cbStatus.getSelectedItem().toString().equals("Ativo")) {
+                objCliente.setStatus(1);
+            }else{
+                objCliente.setStatus(0);
+            }
+            
+            //Endereço
+            bazar.Endereco objEndereco = new Endereco();
+            objEndereco.setCep(txtCep.getText());
+            objEndereco.setRua(txtRua.getText());
+            objEndereco.setBairro(txtBairro.getText());
+            objEndereco.setCidade(txtCidade.getText());
+            objEndereco.setNumero(Integer.parseInt(txtNumero.getText()));        
+            objEndereco.setComplemento(txtComple.getText());
+            objEndereco.setEstado(cbEstado.getSelectedItem().toString());
+            
+            objCliente.setEndereco(objEndereco);
+            
+            bazar.ClienteDAO daocliente = new ClienteDAO();
+            try {
+                daocliente.salvar(objCliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
@@ -509,10 +532,10 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Calendario;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JComboBox cbEstado;
     private javax.swing.JComboBox cbGenero;
     private javax.swing.JComboBox cbStatus;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

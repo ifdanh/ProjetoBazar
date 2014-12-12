@@ -5,20 +5,45 @@
  */
 package forms;
 
+import bazar.ClienteDAO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author dan0001
  */
 public class Clientes extends javax.swing.JInternalFrame {
 
+    List<bazar.Cliente> listaClientes = new ArrayList();
+    
     /**
      * Creates new form Clientes
      */
     public Clientes() {
         initComponents();
+        atualizaGrid();
 
     }
-
+    
+    private void atualizaGrid(){
+        bazar.ClienteDAO daocliente = new ClienteDAO();
+        listaClientes = daocliente.selecionarTodos();
+        
+        DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
+        
+        int rowCount = modelo.getRowCount();
+        for(int i = rowCount - 1; i >= 0;i--){
+            modelo.removeRow(i);
+        }
+        
+        for (bazar.Cliente c : listaClientes) {
+                modelo.addRow(new Object[] {c.getCodigo(), c.getNome(), c.getSobrenome(), c.getTelefone()});
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +59,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        gridClientes = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
@@ -61,18 +86,15 @@ public class Clientes extends javax.swing.JInternalFrame {
         getContentPane().add(jButton3);
         jButton3.setBounds(342, 11, 160, 55);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        gridClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo", "Nome", "Sobrenome", "Telefone "
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(gridClientes);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(10, 88, 1006, 493);
@@ -89,6 +111,7 @@ public class Clientes extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable gridClientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -96,6 +119,5 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
