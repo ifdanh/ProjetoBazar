@@ -18,11 +18,11 @@ public class Bazar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        forms.TelaPrincipal objTelaPrin = new TelaPrincipal();
-        objTelaPrin.setVisible(true);
+//        forms.TelaPrincipal objTelaPrin = new TelaPrincipal();
+//        objTelaPrin.setVisible(true);
         
-//        forms.CadastroCliente objCadastro = new CadastroCliente();       
-//        objCadastro.setVisible(true);
+        forms.CadastroCliente objCadastro = new CadastroCliente();       
+        objCadastro.setVisible(true);
     }
     
 }

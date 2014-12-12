@@ -43,7 +43,7 @@ public class ClienteDAO {
             ps.setString(9, cliente.getNascimento());
             ps.setInt(10, cliente.getStatus());
             ps.setString(11, cliente.getDescricao());
-            ps.setInt(12, cliente.getEndereco().getCodigo());
+//            ps.setInt(12, cliente.getEndereco().getCodigo());
 
             ps.execute();
         } catch (SQLException e) {
