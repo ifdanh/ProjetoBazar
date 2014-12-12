@@ -49,7 +49,7 @@ public class ClienteDAO {
             ps.setDate(9, new Date(cliente.getNascimento().getTime()));
             ps.setInt(10, cliente.getStatus());
             ps.setString(11, cliente.getDescricao());
-//            ps.setInt(12, cliente.getEndereco().getCodigo());
+            ps.setInt(12, cliente.getEndereco().getCodigo());
 
             ps.execute();
             this.con.commit();
