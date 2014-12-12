@@ -25,7 +25,7 @@ public class ProdutoDAO {
     }
 
     public void salvar(Produto produto) {
-        String sql = "INSERT INTO Produto (Codigo,nome,valorcusto,valorvenda,estoquemin,estoque,status,fk_categoria)"
+        String sql = "INSERT INTO produto (Codigo,nome,valorcusto,valorvenda,estoquemin,estoque,status,fk_categoria)"
                 + " VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class ProdutoDAO {
     }
 
     public void alterar(Produto produto) {
-        String sql = "UPDATE Produto set "
+        String sql = "UPDATE produto set "
                 + "nome= ?,"
                 + "valorcusto= ?,"
                 + "valorvenda= ?,"
@@ -71,7 +71,7 @@ public class ProdutoDAO {
     }
 
     public void deletar(Produto produto) {
-        String sql = "DELETE FROM Produto WHERE codigo = ?";
+        String sql = "DELETE FROM produto WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, produto.getCodigo());
@@ -86,9 +86,9 @@ public class ProdutoDAO {
         List<Produto> listap = new ArrayList();
         String sql;
         if (ativos) {
-            sql = "SELECT * FROM Produto WHERE status = 1";
+            sql = "SELECT * FROM produto WHERE status = 1";
         } else {
-            sql = "SELECT * FROM Produto WHERE status = 0";
+            sql = "SELECT * FROM produto WHERE status = 0";
         }
         try {
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class ProdutoDAO {
 
     public List<Produto> selecionarTodos() {
         List<Produto> listap = new ArrayList();
-        String sql = "SELECT * FROM Produto";
+        String sql = "SELECT * FROM produto";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);

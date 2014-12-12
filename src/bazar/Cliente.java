@@ -5,6 +5,8 @@
  */
 package bazar;
 
+import java.util.Date;
+
 /**
  *
  * @author danilo
@@ -19,7 +21,7 @@ public class Cliente {
     private String email;
     private String telefone;
     private String celular;
-    private String nascimento;
+    private Date nascimento;
     private String descricao;
     private Integer status;
      private Endereco endereco;
@@ -160,14 +162,14 @@ public class Cliente {
     /**
      * @return the nascimento
      */
-    public String getNascimento() {
+    public Date getNascimento() {
         return nascimento;
     }
 
     /**
      * @param nascimento the nascimento to set
      */
-    public void setNascimento(String nascimento) {
+    public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
 

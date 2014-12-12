@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +29,15 @@ public class VendaDao {
                 + " VALUES (?,?,?,?,?,?)";
         try {
             this.con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setDouble(1, venda.getValorTotal());
             ps.setString(2, venda.getFormaPagamento());
             ps.setDate(3, venda.getData());
             ps.setInt(4, venda.getStatus());
             ps.setInt(5, venda.getCliente().getCodigo());
             ps.setInt(6, venda.getFuncionario().getCodigo());
-                        
-            ps.execute();
+            ps.executeUpdate();
+            //ps.execute();
             //Por causa da agregação com o itemvenda, é obrigatorio remover cada itemvenda antes de remover a venda
             //usando o con.setAutoCommit(false) inicío uma transação e só termina se tudo ocorrer bem 
             //com o salvar de itemvendaDao

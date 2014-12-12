@@ -25,7 +25,7 @@ public class CategoriaDAO {
     }
 
     public void salvar(Categoria categoria) {
-        String sql = "INSERT INTO Categoria ("
+        String sql = "INSERT INTO categoria ("
                 + "nome,"
                 + "status)"
                 + " VALUES (?,?)";
@@ -43,7 +43,7 @@ public class CategoriaDAO {
 
     public void alterar(Categoria categoria) {
 
-        String sql = "UPDATE Categoria SET "
+        String sql = "UPDATE categoria SET "
                 + "nome=?,"
                 + "status=?"
                 + " WHERE codigo=?";
@@ -63,7 +63,7 @@ public class CategoriaDAO {
 
     public void deletar(Categoria categoria) {
 
-        String sql = "DELETE FROM Categoria WHERE codigo=?";
+        String sql = "DELETE FROM categoria WHERE codigo=?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -77,7 +77,7 @@ public class CategoriaDAO {
 
     public List<Categoria> selecionarTodos() {
         List<Categoria> listac = new ArrayList();
-        String sql = "SELECT * FROM Categoria";
+        String sql = "SELECT * FROM categoria";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);
@@ -96,9 +96,9 @@ public class CategoriaDAO {
         List<Categoria> listac = new ArrayList();
         String sql;
         if (ativos) {
-            sql = "SELECT * FROM Categoria WHERE status = 1";
+            sql = "SELECT * FROM categoria WHERE status = 1";
         } else {
-            sql = "SELECT * FROM Categoria WHERE status = 0";
+            sql = "SELECT * FROM categoria WHERE status = 0";
         }
         try {
                 PreparedStatement ps = con.prepareStatement(sql);

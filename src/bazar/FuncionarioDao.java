@@ -27,7 +27,7 @@ public class FuncionarioDao {
     
     
     public void salvar(Funcionario funcionario){
-        String sql = "INSERT INTO Funcionario ("
+        String sql = "INSERT INTO funcionario ("
                 + "nome,sobrenome,login,senha,email,"
                 + "telefone,celular,status,descricao,"
                 + "fk_perfil,fk_endereco)"
@@ -53,7 +53,7 @@ public class FuncionarioDao {
     }
     
     public void alterar(Funcionario funcionario){
-        String sql = "UPDATE Funcionario set "
+        String sql = "UPDATE funcionario set "
                 + "nome = ?,"
                 + "sobrenome = ?,"
                 + "login = ?,"
@@ -88,7 +88,7 @@ public class FuncionarioDao {
     }
     
     public void deletar(Funcionario funcionario){
-        String sql = "DELETE FROM Funcionario WHERE codigo = ?";
+        String sql = "DELETE FROM funcionario WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, funcionario.getCodigo());
@@ -103,9 +103,9 @@ public class FuncionarioDao {
         List<Funcionario> listaf = new ArrayList();
         String sql;
         if (ativos) {
-            sql = "SELECT * FROM Funcionario WHERE status = 1";
+            sql = "SELECT * FROM funcionario WHERE status = 1";
         }else{
-           sql = "SELECT * FROM Funcionario WHERE status = 0";
+           sql = "SELECT * FROM funcionario WHERE status = 0";
         }
         try {
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class FuncionarioDao {
     
     public List<Funcionario> selecionarTodos(){
         List<Funcionario> listaf = new ArrayList();
-        String sql = "SELECT * FROM Funcionario";
+        String sql = "SELECT * FROM funcionario";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);

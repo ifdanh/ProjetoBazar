@@ -25,7 +25,7 @@ public class PerfilDao {
     }
     
     public void salvar(Perfil   perfil){
-        String sql = "INSERT INTO Perfil (funcao, status)"
+        String sql = "INSERT INTO perfil (funcao, status)"
                 + " VALUES (?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class PerfilDao {
     }
     
     public void alterar(Perfil perfil){
-        String sql = "UPDATE Perfil set "
+        String sql = "UPDATE perfil set "
                 + "funcao = ?,"
                 + "status = ?"
                 + " WHERE codigo = ?";
@@ -56,7 +56,7 @@ public class PerfilDao {
     }
     
     public void deletar(Perfil perfil){
-        String sql = "DELETE FROM Perfil WHERE codigo = ?";
+        String sql = "DELETE FROM perfil WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, perfil.getCodigo());
@@ -71,9 +71,9 @@ public class PerfilDao {
         List<Perfil> listap = new ArrayList();
         String sql;
         if (ativos) {
-            sql = "SELECT * FROM Perfil WHERE status = 1";
+            sql = "SELECT * FROM perfil WHERE status = 1";
         }else{
-            sql = "SELECT * FROM Perfil WHERE status = 0";  
+            sql = "SELECT * FROM perfil WHERE status = 0";  
         }
         
         try {
@@ -93,7 +93,7 @@ public class PerfilDao {
     
     public List<Perfil> selecionarTodos(){
         List<Perfil> listap = new ArrayList();
-        String sql = "SELECT * FROM Perfil";
+        String sql = "SELECT * FROM perfil";
             try {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery(sql);

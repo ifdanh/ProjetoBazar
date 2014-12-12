@@ -6,6 +6,7 @@
 package bazar;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,13 +25,18 @@ public class ClienteDAO {
         con = FabricaConexao.pegaConexao();
     }
 
-    public void salvar(Cliente cliente) {
-        String sql = "INSERT INTO Cliente ("
+    public void salvar(Cliente cliente) throws SQLException {
+        String sql = "INSERT INTO cliente ("
                 + "nome,sobrenome,genero,cpf,rg,"
                 + "email,telefone,celular,nascimento,"
                 + "status,descricao,fk_endereco)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
+            this.con.setAutoCommit(false);
+            
+            EnderecoDao daoendereco = new EnderecoDao();
+            cliente.getEndereco().setCodigo(daoendereco.salvar(cliente.getEndereco()));
+            
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getSobrenome());
@@ -40,19 +46,21 @@ public class ClienteDAO {
             ps.setString(6, cliente.getEmail());
             ps.setString(7, cliente.getTelefone());
             ps.setString(8, cliente.getCelular());
-            ps.setString(9, cliente.getNascimento());
+            ps.setDate(9, new Date(cliente.getNascimento().getTime()));
             ps.setInt(10, cliente.getStatus());
             ps.setString(11, cliente.getDescricao());
 //            ps.setInt(12, cliente.getEndereco().getCodigo());
 
             ps.execute();
+            this.con.commit();
         } catch (SQLException e) {
+            this.con.rollback();
             System.out.println(e.getMessage());
         }
     }
 
     public void alterar(Cliente cliente) {
-        String sql = "UPDATE Cliente set "
+        String sql = "UPDATE cliente set "
                 + "nome=?,"
                 + "sobrenome=?,"
                 + "genero=?,"
@@ -77,7 +85,7 @@ public class ClienteDAO {
             ps.setString(6, cliente.getEmail());
             ps.setString(7, cliente.getTelefone());
             ps.setString(8, cliente.getCelular());
-            ps.setString(9, cliente.getNascimento());
+            ps.setDate(9, new Date(cliente.getNascimento().getTime()));
             ps.setInt(10, cliente.getStatus());
             ps.setString(11, cliente.getDescricao());
             ps.setInt(12, cliente.getEndereco().getCodigo());
@@ -89,7 +97,7 @@ public class ClienteDAO {
     }
 
     public void deletar(Cliente cliente) {
-        String sql = "DELETE FROM Cliente WHERE codigo = ?";
+        String sql = "DELETE FROM cliente WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, cliente.getCodigo());
@@ -102,7 +110,7 @@ public class ClienteDAO {
 
     public List<Cliente> selecionarTodos() {
         List<Cliente> listac = new ArrayList();
-        String sql = "SELECT * FROM Cliente";
+        String sql = "SELECT * FROM cliente";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);
@@ -121,9 +129,9 @@ public class ClienteDAO {
         List<Cliente> listac = new ArrayList();
         String sql;
         if (ativos) {
-            sql = "SELECT * FROM Cliente WHERE status = 1";
+            sql = "SELECT * FROM cliente WHERE status = 1";
         } else {
-            sql = "SELECT * FROM Cliente WHERE status = 0";
+            sql = "SELECT * FROM cliente WHERE status = 0";
         }
         try {
                 PreparedStatement ps = con.prepareStatement(sql);
@@ -151,7 +159,7 @@ public class ClienteDAO {
             c.setEmail(linha.getString("email"));
             c.setTelefone(linha.getString("telefone"));
             c.setCelular(linha.getString("celular"));
-            c.setNascimento(linha.getString("nascimento"));
+            c.setNascimento(linha.getDate("nascimento"));
             c.setStatus(linha.getInt("status"));
             c.setDescricao(linha.getString("descricao"));
 
