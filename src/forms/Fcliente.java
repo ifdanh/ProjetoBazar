@@ -8,23 +8,25 @@ package forms;
 import bazar.ClienteDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dan0001
  */
-public class Clientes extends javax.swing.JInternalFrame {
+public class Fcliente extends javax.swing.JInternalFrame {
 
     List<bazar.Cliente> listaClientes = new ArrayList();
     
     /**
      * Creates new form Clientes
      */
-    public Clientes() {
+    public Fcliente() {
         initComponents();
         atualizaGrid();
-
+        //gridClientes.setSize(1024, 0);
+        gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
     
     private void atualizaGrid(){
@@ -55,68 +57,78 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        gridClientes = new javax.swing.JTable();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        gridClientes = new javax.swing.JTable();
 
         setClosable(true);
-        setMaximizable(true);
         setMaximumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 72, 1026, 10);
 
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setText("Cadastrar");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(10, 11, 160, 55);
+        getContentPane().add(btnNovo);
+        btnNovo.setBounds(10, 11, 160, 55);
 
-        jButton2.setText("Alterar");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(176, 11, 160, 55);
+        btnEditar.setText("Alterar");
+        getContentPane().add(btnEditar);
+        btnEditar.setBounds(176, 11, 160, 55);
 
-        jButton3.setText("Deletar");
-        getContentPane().add(jButton3);
-        jButton3.setBounds(342, 11, 160, 55);
+        btnRemover.setText("Deletar");
+        getContentPane().add(btnRemover);
+        btnRemover.setBounds(342, 11, 160, 55);
+        getContentPane().add(jSeparator2);
+        jSeparator2.setBounds(0, 601, 1026, 20);
 
         gridClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nome", "Sobrenome", "Telefone "
+                "Codigo", "Nome", "Sobrenome", "Telefone"
             }
-        ));
-        jScrollPane1.setViewportView(gridClientes);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 88, 1006, 493);
-        getContentPane().add(jSeparator2);
-        jSeparator2.setBounds(0, 601, 1026, 20);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        gridClientes.setMaximumSize(new java.awt.Dimension(1024, 0));
+        gridClientes.setMinimumSize(new java.awt.Dimension(1024, 0));
+        jScrollPane2.setViewportView(gridClientes);
 
-        setBounds(0, 0, 1024, 659);
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(10, 80, 600, 250);
+
+        setBounds(0, 0, 632, 364);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         CadastroCliente objCadastro = new CadastroCliente();
         objCadastro.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.atualizaGrid();
+    }//GEN-LAST:event_btnNovoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JTable gridClientes;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables

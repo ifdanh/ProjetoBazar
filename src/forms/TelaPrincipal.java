@@ -6,6 +6,9 @@
 package forms;
 
 import java.awt.Component;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 
 /**
@@ -33,14 +36,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         btnCliente = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnFuncionarios = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPinterno = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1024, 720));
+        setMinimumSize(new java.awt.Dimension(1024, 720));
+        setName("Inicio"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1024, 780));
 
         btnCliente.setText("Clientes");
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -49,22 +56,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Funcionarios");
+        btnFuncionarios.setText("Funcionarios");
+        btnFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFuncionariosActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Produtos");
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPinterno.setBackground(new java.awt.Color(153, 153, 153));
+        jPinterno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPinterno.setMaximumSize(new java.awt.Dimension(1024, 0));
+        jPinterno.setMinimumSize(new java.awt.Dimension(1024, 0));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPinternoLayout = new javax.swing.GroupLayout(jPinterno);
+        jPinterno.setLayout(jPinternoLayout);
+        jPinternoLayout.setHorizontalGroup(
+            jPinternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
+        jPinternoLayout.setVerticalGroup(
+            jPinternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 755, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -76,7 +90,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addComponent(btnFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -86,7 +100,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPinterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,12 +111,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPinterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,17 +125,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
 
-        Clientes objCliente = null;
+        Fcliente objCliente = null;
      
         if (objCliente == null) {
-            objCliente = new Clientes();
-            jPanel1.remove(objCliente);
-            jPanel1.add(objCliente);
+            objCliente = new Fcliente();
+            jPinterno.remove(objCliente);
+            jPinterno.add(objCliente);
+            try {
+                //objCliente.setSize(1024, 500);
+                objCliente.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             objCliente.setVisible(true);
         }
 
 
     }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionariosActionPerformed
+        
+        Ffuncionario objFuncionario = new Ffuncionario();
+        jPinterno.remove(objFuncionario);
+        jPinterno.add(objFuncionario);
+        objFuncionario.setVisible(true);
+    }//GEN-LAST:event_btnFuncionariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,19 +182,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                TelaPrincipal framePrincipal =  new TelaPrincipal();
+                framePrincipal.setSize(1024, 500);
+                framePrincipal.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnFuncionarios;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPinterno;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
