@@ -12,10 +12,10 @@ import java.util.logging.Logger;
  *
  * @author andregaldino
  */
-public class CadastroFuncionario extends javax.swing.JFrame {
+public class FCFuncionario extends javax.swing.JFrame {
 
     
-    public CadastroFuncionario() {
+    public FCFuncionario() {
         initComponents();
     }
 
@@ -383,7 +383,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             try {
                 daofuncionario.salvar(f);
             } catch (SQLException ex) {
-                Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FCFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
@@ -415,19 +415,20 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroFuncionario().setVisible(true);
+                new FCFuncionario().setVisible(true);
             }
         });
     }

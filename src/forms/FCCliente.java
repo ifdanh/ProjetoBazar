@@ -18,12 +18,12 @@ import javax.swing.JOptionPane;
  *
  * @author dan0001
  */
-public class CadastroCliente extends javax.swing.JFrame {
+public class FCCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastroCliente
      */
-    public CadastroCliente() {
+    public FCCliente() {
         initComponents();
         Calendario.setDateFormatString("yyyy-MM-dd");
     }
@@ -481,7 +481,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             try {
                 daocliente.salvar(objCliente);
             } catch (SQLException ex) {
-                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FCCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
@@ -511,21 +511,23 @@ public class CadastroCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroCliente().setVisible(true);
+                new FCCliente().setVisible(true);
             }
         });
     }

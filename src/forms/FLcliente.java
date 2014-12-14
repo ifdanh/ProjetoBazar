@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author dan0001
  */
-public class Fcliente extends javax.swing.JInternalFrame {
+public class FLcliente extends javax.swing.JInternalFrame {
 
     List<bazar.Cliente> listaClientes = new ArrayList();
     
     /**
      * Creates new form Clientes
      */
-    public Fcliente() {
+    public FLcliente() {
         initComponents();
         atualizaGrid();
         //gridClientes.setSize(1024, 0);
@@ -116,7 +116,7 @@ public class Fcliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        CadastroCliente objCadastro = new CadastroCliente();
+        FCCliente objCadastro = new FCCliente();
         objCadastro.setVisible(true);
         this.atualizaGrid();
     }//GEN-LAST:event_btnNovoActionPerformed

@@ -125,10 +125,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
 
-        Fcliente objCliente = null;
+        FLcliente objCliente = null;
      
         if (objCliente == null) {
-            objCliente = new Fcliente();
+            objCliente = new FLcliente();
             jPinterno.remove(objCliente);
             jPinterno.add(objCliente);
             try {
@@ -145,7 +145,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionariosActionPerformed
         
-        Ffuncionario objFuncionario = new Ffuncionario();
+        FLfuncionario objFuncionario = new FLfuncionario();
         jPinterno.remove(objFuncionario);
         jPinterno.add(objFuncionario);
         objFuncionario.setVisible(true);

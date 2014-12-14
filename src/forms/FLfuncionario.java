@@ -9,11 +9,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author andregaldino
  */
-public class Ffuncionario extends javax.swing.JInternalFrame {
+public class FLfuncionario extends javax.swing.JInternalFrame {
    
     List<bazar.Funcionario> listaFuncionarios = new ArrayList();
     
-    public Ffuncionario() {
+    public FLfuncionario() {
         initComponents();
         atualizaGrid();
     }
@@ -126,7 +126,7 @@ public class Ffuncionario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        CadastroFuncionario objCadastro = new CadastroFuncionario();
+        FCFuncionario objCadastro = new FCFuncionario();
         objCadastro.setVisible(true);
         this.atualizaGrid();
     }//GEN-LAST:event_btnNovoActionPerformed
