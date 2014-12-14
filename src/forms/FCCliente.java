@@ -23,12 +23,57 @@ public class FCCliente extends javax.swing.JFrame {
     /**
      * Creates new form CadastroCliente
      */
+    private int flag = 0;
+
     public FCCliente() {
         initComponents();
         Calendario.setDateFormatString("yyyy-MM-dd");
     }
-    
-    
+
+    public FCCliente(int codigo) {
+        flag = 1;
+        initComponents();
+        Calendario.setDateFormatString("yyyy-MM-dd");
+        MudarBotao();
+        CarregaCampos(codigo);
+    }
+
+    public void MudarBotao() {
+        btnCadastrar.setText("Alterar");
+
+    }
+
+    public void CarregaCampos(int codigo) {
+
+        Cliente objCliente = new Cliente();
+        bazar.ClienteDAO daocliente = new ClienteDAO();
+        objCliente = daocliente.selecionarCliente(codigo);
+
+        txtNome.setText(objCliente.getNome());
+        txtSobrenome.setText(objCliente.getSobrenome());
+        cbGenero.setSelectedItem(objCliente.getGenero());
+        txtCpf.setText(objCliente.getCpf());
+        txtRg.setText(objCliente.getRg());
+        txtEmail.setText(objCliente.getEmail());
+        txtTelefone.setText(objCliente.getTelefone());
+        txtCelular.setText(objCliente.getCelular());
+        txtDescricao.setText(objCliente.getDescricao());
+        Calendario.setDate(objCliente.getNascimento());
+        if (objCliente.getStatus().equals(1)) {
+            cbStatus.setSelectedItem("Ativo");
+        } else {
+            cbStatus.setSelectedItem("Inativo");
+        }
+
+//        txtCep.setText(listaClientes.get(0).getEndereco().getCep());
+//        txtRua.setText(listaClientes.get(0).getEndereco().getRua());
+//        txtBairro.setText(listaClientes.get(0).getEndereco().getBairro());
+//        txtCidade.setText(listaClientes.get(0).getEndereco().getCidade());
+////        txtNumero.setText(Integer.toString(listaClientes.get(0).getEndereco().getNumero()));
+//        txtComple.setText(listaClientes.get(0).getEndereco().getComplemento());
+//        cbEstado.setSelectedItem(listaClientes.get(0).getEndereco().getEstado());
+    }
+
     private Boolean ValidaCampos() {
         if (txtNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Nome devem ser preenchidos\nCheque o campo e tente novamente!", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -69,7 +114,6 @@ public class FCCliente extends javax.swing.JFrame {
 
         return true;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,32 +273,36 @@ public class FCCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(9, 9, 9)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
-                            .addComponent(jLabel2)
-                            .addGap(2, 2, 2)
-                            .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6)
-                            .addGap(7, 7, 7)
-                            .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addComponent(jLabel3)
-                            .addGap(18, 18, 18)
-                            .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel7)
-                            .addGap(8, 8, 8)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel8)
-                            .addGap(2, 2, 2)
-                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(9, 9, 9)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(2, 2, 2)
+                                .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(7, 7, 7)
+                                .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addGap(8, 8, 8)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel8)
+                                .addGap(2, 2, 2)
+                                .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -443,8 +491,8 @@ public class FCCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_cbEstadoActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if(ValidaCampos()){
-        
+
+        if (ValidaCampos()) {
 
             bazar.Cliente objCliente = new Cliente();
             //Cliente
@@ -458,35 +506,47 @@ public class FCCliente extends javax.swing.JFrame {
             objCliente.setRg(txtRg.getText());
             objCliente.setDescricao(txtDescricao.getText());
             objCliente.setGenero(cbGenero.getSelectedItem().toString());
-            
+
             if (cbStatus.getSelectedItem().toString().equals("Ativo")) {
                 objCliente.setStatus(1);
-            }else{
+            } else {
                 objCliente.setStatus(0);
             }
-            
+
             //Endereço
             bazar.Endereco objEndereco = new Endereco();
             objEndereco.setCep(txtCep.getText());
             objEndereco.setRua(txtRua.getText());
             objEndereco.setBairro(txtBairro.getText());
             objEndereco.setCidade(txtCidade.getText());
-            objEndereco.setNumero(Integer.parseInt(txtNumero.getText()));        
+            objEndereco.setNumero(Integer.parseInt(txtNumero.getText()));
             objEndereco.setComplemento(txtComple.getText());
             objEndereco.setEstado(cbEstado.getSelectedItem().toString());
-            
-            objCliente.setEndereco(objEndereco);
-            
-            bazar.ClienteDAO daocliente = new ClienteDAO();
-            try {
-                daocliente.salvar(objCliente);
-            } catch (SQLException ex) {
-                Logger.getLogger(FCCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
-        }
 
+            objCliente.setEndereco(objEndereco);
+
+            bazar.ClienteDAO daocliente = new ClienteDAO();
+            if (flag == 0) {
+                try {
+                    daocliente.salvar(objCliente);
+                    JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!!!");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FCCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi Possível Cadastrar o Cliente");
+                }
+            } else {
+
+                try {
+                    daocliente.alterar(objCliente);
+                    JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso!!!");
+                } catch (Exception e) {
+                    Logger.getLogger(FCCliente.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "Não foi Possível Alterar o Cliente");
+                }
+
+            }
+
+        }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

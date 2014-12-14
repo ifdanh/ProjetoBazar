@@ -33,10 +33,10 @@ public class ClienteDAO {
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             this.con.setAutoCommit(false);
-            
+
             EnderecoDao daoendereco = new EnderecoDao();
             cliente.getEndereco().setCodigo(daoendereco.salvar(cliente.getEndereco()));
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getSobrenome());
@@ -125,6 +125,25 @@ public class ClienteDAO {
         return listac;
     }
 
+    public Cliente selecionarCliente(int codigo) {
+        String sql = "SELECT * FROM cliente WHERE codigo = ? ";
+        Cliente objCliente = new Cliente();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery(sql);
+
+            while (rs.next()) {
+                objCliente = populacliente(rs);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    
+            return objCliente;
+    }
+
     public List<Cliente> selecionarTodos(boolean ativos) {
         List<Cliente> listac = new ArrayList();
         String sql;
@@ -134,16 +153,16 @@ public class ClienteDAO {
             sql = "SELECT * FROM cliente WHERE status = 0";
         }
         try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery(sql);
 
-                while (rs.next()) {
-                    listac.add(populacliente(rs));
-                }
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            while (rs.next()) {
+                listac.add(populacliente(rs));
             }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return listac;
     }
 

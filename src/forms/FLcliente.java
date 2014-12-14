@@ -5,9 +5,11 @@
  */
 package forms;
 
+import bazar.Cliente;
 import bazar.ClienteDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +20,8 @@ import javax.swing.table.DefaultTableModel;
 public class FLcliente extends javax.swing.JInternalFrame {
 
     List<bazar.Cliente> listaClientes = new ArrayList();
-    
+    private int codigo;
+
     /**
      * Creates new form Clientes
      */
@@ -28,24 +31,24 @@ public class FLcliente extends javax.swing.JInternalFrame {
         //gridClientes.setSize(1024, 0);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
-    
-    private void atualizaGrid(){
+
+    private void atualizaGrid() {
         bazar.ClienteDAO daocliente = new ClienteDAO();
         listaClientes = daocliente.selecionarTodos();
-        
+
         DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
-        
+
         int rowCount = modelo.getRowCount();
-        for(int i = rowCount - 1; i >= 0;i--){
+        for (int i = rowCount - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
-        
+
         for (bazar.Cliente c : listaClientes) {
-                modelo.addRow(new Object[] {c.getCodigo(), c.getNome(), c.getSobrenome(), c.getTelefone()});
+            modelo.addRow(new Object[]{c.getCodigo(), c.getNome(), c.getSobrenome(), c.getTelefone()});
         }
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,6 +83,11 @@ public class FLcliente extends javax.swing.JInternalFrame {
         btnNovo.setBounds(10, 11, 160, 55);
 
         btnEditar.setText("Alterar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEditar);
         btnEditar.setBounds(176, 11, 160, 55);
 
@@ -107,6 +115,11 @@ public class FLcliente extends javax.swing.JInternalFrame {
         });
         gridClientes.setMaximumSize(new java.awt.Dimension(1024, 0));
         gridClientes.setMinimumSize(new java.awt.Dimension(1024, 0));
+        gridClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gridClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(gridClientes);
 
         getContentPane().add(jScrollPane2);
@@ -120,6 +133,24 @@ public class FLcliente extends javax.swing.JInternalFrame {
         objCadastro.setVisible(true);
         this.atualizaGrid();
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
+        if (gridClientes.getCellSelectionEnabled()) {
+
+            FCCliente objEditar = new FCCliente(codigo);
+            objEditar.setVisible(true);
+            this.atualizaGrid();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um Cliente!!!");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void gridClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridClientesMouseClicked
+        int linhaSelecionada = gridClientes.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
+        codigo = ((Integer) modelo.getValueAt(linhaSelecionada, 0));
+    }//GEN-LAST:event_gridClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

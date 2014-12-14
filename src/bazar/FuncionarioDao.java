@@ -26,13 +26,16 @@ public class FuncionarioDao {
     
     
     
-    public void salvar(Funcionario funcionario){
+    public void salvar(Funcionario funcionario) throws SQLException{
         String sql = "INSERT INTO funcionario ("
                 + "nome,sobrenome,login,senha,email,"
                 + "telefone,celular,status,descricao,"
                 + "fk_perfil,fk_endereco)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
+            this.con.setAutoCommit(false);
+            EnderecoDao daoenderecao = new EnderecoDao();
+            funcionario.getEndereco().setCodigo(daoenderecao.salvar(funcionario.getEndereco()));
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, funcionario.getNome());
             ps.setString(2, funcionario.getSobrenome());
@@ -47,7 +50,9 @@ public class FuncionarioDao {
             ps.setInt(11, funcionario.getEndereco().getCodigo());
             
             ps.execute();
+             this.con.commit();
         } catch (SQLException e) {
+            this.con.rollback();
             System.out.println(e.getMessage());
         }
     }
