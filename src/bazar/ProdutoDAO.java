@@ -25,18 +25,17 @@ public class ProdutoDAO {
     }
 
     public void salvar(Produto produto)throws SQLException {
-        String sql = "INSERT INTO produto (Codigo,nome,valorcusto,valorvenda,estoquemin,estoque,status,fk_categoria)"
-                + " VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO produto (nome,valorcusto,valorvenda,estoquemin,estoque,status,fk_categoria)"
+                + " VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, produto.getCodigo());
-            ps.setString(2, produto.getNome());
-            ps.setFloat(3, produto.getValorCusto());
-            ps.setFloat(4, produto.getValorVenda());
-            ps.setInt(5, produto.getEstoqueMin());
-            ps.setInt(6, produto.getEstoque());
-            ps.setInt(7, produto.getStatus());
-            ps.setInt(8, produto.getCategoria().getCodigo());
+            ps.setString(1, produto.getNome());
+            ps.setFloat(2, produto.getValorCusto());
+            ps.setFloat(3, produto.getValorVenda());
+            ps.setInt(4, produto.getEstoqueMin());
+            ps.setInt(5, produto.getEstoque());
+            ps.setInt(6, produto.getStatus());
+            ps.setInt(7, produto.getCategoria().getCodigo());
             ps.execute();
 
         } catch (SQLException e) {
@@ -46,12 +45,12 @@ public class ProdutoDAO {
 
     public void alterar(Produto produto) throws SQLException{
         String sql = "UPDATE produto set "
-                + "nome= ?,"
-                + "valorcusto= ?,"
-                + "valorvenda= ?,"
-                + "estoquemin= ?,"
-                + "estoque= ?,"
-                + "status= ?"
+                + "nome= ?, "
+                + "valorcusto= ?, "
+                + "valorvenda= ?, "
+                + "estoquemin= ?, "
+                + "estoque= ?, "
+                + "status= ?, "
                 + "fk_categoria = ? WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -202,15 +201,20 @@ public class ProdutoDAO {
         Produto p = new Produto();
         try {
 
-            p.setCodigo(linha.getInt("Codigo"));
-            p.setNome(linha.getString("nome"));
-            p.setValorCusto(linha.getFloat("valorcusto"));
-            p.setValorVenda(linha.getFloat("valorvenda"));
-            p.setEstoqueMin(linha.getInt("estoquemin"));
-            p.setEstoque(linha.getInt("estoque"));
-            p.setStatus(linha.getInt("status"));
+            p.setCodigo(linha.getInt("pcodigo"));
+            p.setNome(linha.getString("pnome"));
+            p.setValorCusto(linha.getFloat("pvcusto"));
+            p.setValorVenda(linha.getFloat("pvvenda"));
+            p.setEstoqueMin(linha.getInt("pestoquem"));
+            p.setEstoque(linha.getInt("pestoque"));
+            p.setStatus(linha.getInt("pstatus"));
+            p.setDescrisao(linha.getString("pdesc"));
             Categoria c = new Categoria();
-            c.setCodigo(linha.getInt("fk_categoria"));
+            c.setCodigo(linha.getInt("ccodigo"));
+            c.setNome(linha.getString("cnome"));
+            c.setStatus(linha.getInt("cstatus"));
+            p.setCategoria(c);
+            
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
