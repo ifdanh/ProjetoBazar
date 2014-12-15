@@ -114,6 +114,24 @@ public class CategoriaDAO {
         return listac;
     }
 
+    public Categoria selecionarCategoria(int codigo) {
+        Categoria c = new Categoria();
+        String sql = "SELECT * FROM categoria WHERE codigo = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                c = populacategoria(rs);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return c;
+    }
+    
     private Categoria populacategoria(ResultSet linha) {
        Categoria c = new Categoria();
         try {
