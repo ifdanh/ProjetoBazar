@@ -97,7 +97,6 @@ public class FuncionarioDao {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, funcionario.getCodigo());
-            
             ps.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
