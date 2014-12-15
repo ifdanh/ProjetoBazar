@@ -1,8 +1,13 @@
 package forms;
 
+import bazar.Funcionario;
 import bazar.FuncionarioDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -10,31 +15,31 @@ import javax.swing.table.DefaultTableModel;
  * @author andregaldino
  */
 public class FLfuncionario extends javax.swing.JInternalFrame {
-   
+
     List<bazar.Funcionario> listaFuncionarios = new ArrayList();
-    
+    private int codigo;
+
     public FLfuncionario() {
         initComponents();
         atualizaGrid();
     }
-    
-    private void atualizaGrid(){
+
+    private void atualizaGrid() {
         bazar.FuncionarioDao daofuncionario = new FuncionarioDao();
         listaFuncionarios = daofuncionario.selecionarTodos();
-        
+
         DefaultTableModel modelo = (DefaultTableModel) gridFuncionarios.getModel();
-        
+
         int rowCount = modelo.getRowCount();
-        for (int i = rowCount -1; i >= 0; i--) {
+        for (int i = rowCount - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
-        
-        for(bazar.Funcionario f : listaFuncionarios){
+
+        for (bazar.Funcionario f : listaFuncionarios) {
             modelo.addRow(new Object[]{f.getCodigo(), f.getNome(), f.getLogin(), f.getTelefone()
             });
         }
-        
-        
+
     }
 
     /**
@@ -61,8 +66,18 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
         });
 
         btnEditar.setText("Alterar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnRemover.setText("Deletar");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         gridFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,6 +97,11 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
         });
         gridFuncionarios.setMaximumSize(new java.awt.Dimension(1024, 0));
         gridFuncionarios.setMinimumSize(new java.awt.Dimension(1024, 0));
+        gridFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gridFuncionariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(gridFuncionarios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,6 +150,43 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
         objCadastro.setVisible(true);
         this.atualizaGrid();
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void gridFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridFuncionariosMouseClicked
+        int linhaSelecionada = gridFuncionarios.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) gridFuncionarios.getModel();
+        codigo = (Integer) modelo.getValueAt(linhaSelecionada, 0);
+    }//GEN-LAST:event_gridFuncionariosMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (codigo > 0) {
+            FCFuncionario objEditar = new FCFuncionario(codigo);
+            objEditar.setVisible(true);
+            this.atualizaGrid();
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        if (codigo > 0) {
+            int respostaR = JOptionPane.showConfirmDialog(this, "Deseja Realmente Remover o Cliente ?");
+            //0 - Sim | 1 - Não | 2 - Cancelar
+            if (respostaR == 0) {
+                try {
+                    new FuncionarioDao().deletar(new FuncionarioDao().selecionarFuncionario(codigo));
+                    JOptionPane.showMessageDialog(null, "Cliente Removido com Sucesso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FLfuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi possivel remover o Cliente. Contate o Desenvolvedor!");
+                }finally{
+                    this.atualizaGrid();
+                }    
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

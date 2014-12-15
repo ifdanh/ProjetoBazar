@@ -38,12 +38,12 @@ public class FCCliente extends javax.swing.JFrame {
         CarregaCampos(codigo);
     }
 
-    public void MudarBotao() {
+    private void MudarBotao() {
         btnCadastrar.setText("Alterar");
 
     }
 
-    public void CarregaCampos(int codigo) {
+    private void CarregaCampos(int codigo) {
 
         Cliente objCliente = new Cliente();
         bazar.ClienteDAO daocliente = new ClienteDAO();

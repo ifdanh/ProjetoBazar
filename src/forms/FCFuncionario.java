@@ -4,21 +4,81 @@ import bazar.Endereco;
 import bazar.Funcionario;
 import bazar.FuncionarioDao;
 import bazar.Perfil;
+import bazar.PerfilDao;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author andregaldino
  */
 public class FCFuncionario extends javax.swing.JFrame {
-
     
+    private int flag = 0;
+    private int codEndereco;
+    List<Integer> listaCargocod = new ArrayList();
+
     public FCFuncionario() {
         initComponents();
+        carregaCBcargo();
     }
 
+    public FCFuncionario(int codigo) {
+        flag = 1;
+        initComponents();
+        carregaCBcargo();
+        MudarBotao();
+        CarregaCampos(codigo);
+    }
+    
+    private void carregaCBcargo() {
+        bazar.PerfilDao daoperfil = new PerfilDao();
+        
+        for (Perfil p : daoperfil.selecionarTodos()) {
+            cbPerfil.addItem(p.getFuncao());
+            listaCargocod.add(p.getCodigo());            
+        }
+    }
+    
+    private void MudarBotao() {
+        btnCadastrar.setText("Alterar");
+    }
+    
+    private void CarregaCampos(int codigo) {
+        Funcionario objFuncionario = new Funcionario();
+        objFuncionario = new FuncionarioDao().selecionarFuncionario(codigo);
+        
+        txtNome.setText(objFuncionario.getNome());
+        txtSobrenome.setText(objFuncionario.getSobrenome());
+        txtLogin.setText(objFuncionario.getLogin());
+        txtSenha.setText(objFuncionario.getSenha());
+        txtEmail.setText(objFuncionario.getEmail());
+        txtTelefone.setText(objFuncionario.getTelefone());
+        txtCelular.setText(objFuncionario.getCelular());
+        txtDescricao.setText(objFuncionario.getDescricao());
+        if (objFuncionario.getStatus().equals(1)) {
+            cbStatus.setSelectedItem("Ativo");
+        } else {
+            cbStatus.setSelectedItem("Inativo");
+        }
+        
+        cbPerfil.setSelectedItem(objFuncionario.getCargo().getFuncao());
+        
+        codEndereco = objFuncionario.getEndereco().getCodigo();
+        
+        txtCep.setText(objFuncionario.getEndereco().getCep());
+        txtRua.setText(objFuncionario.getEndereco().getRua());
+        txtBairro.setText(objFuncionario.getEndereco().getBairro());
+        txtCidade.setText(objFuncionario.getEndereco().getCidade());
+        txtNumero.setText(objFuncionario.getEndereco().getNumero().toString());
+        txtComplemento.setText(objFuncionario.getEndereco().getComplemento());
+        cbEstado.setSelectedItem(objFuncionario.getEndereco().getEstado());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,8 +164,6 @@ public class FCFuncionario extends javax.swing.JFrame {
 
         jLabel14.setText("Cargo :");
 
-        cbPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Vendedor" }));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -126,7 +184,7 @@ public class FCFuncionario extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                                 .addComponent(jLabel14))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -141,10 +199,11 @@ public class FCFuncionario extends javax.swing.JFrame {
                             .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(4, 4, 4)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbPerfil, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel13)
@@ -298,6 +357,11 @@ public class FCFuncionario extends javax.swing.JFrame {
         btnLimpar.setText("Limpar");
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -317,7 +381,7 @@ public class FCFuncionario extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(77, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,8 +401,6 @@ public class FCFuncionario extends javax.swing.JFrame {
                     .addContainerGap(65, Short.MAX_VALUE)))
         );
 
-        jPanel1.getAccessibleContext().setAccessibleName("Funcionario");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -347,7 +409,7 @@ public class FCFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_cbEstadoActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if(ValidarCampos()){
+        if (ValidarCampos()) {
             bazar.Funcionario f = new Funcionario();
             f.setNome(txtNome.getText());
             f.setSobrenome(txtSobrenome.getText());
@@ -360,13 +422,12 @@ public class FCFuncionario extends javax.swing.JFrame {
             
             if (cbStatus.getSelectedItem().toString().equals("Ativo")) {
                 f.setStatus(1);
-            }else{
+            } else {
                 f.setStatus(0);
             }
             
-            //para teste
             bazar.Perfil perfil = new Perfil();
-            perfil.setCodigo(1);
+            perfil.setCodigo(listaCargocod.get(cbPerfil.getSelectedIndex()));
             f.setCargo(perfil);
             
             bazar.Endereco e = new Endereco();
@@ -380,24 +441,38 @@ public class FCFuncionario extends javax.swing.JFrame {
             f.setEndereco(e);
             
             bazar.FuncionarioDao daofuncionario = new FuncionarioDao();
-            try {
-                daofuncionario.salvar(f);
-            } catch (SQLException ex) {
-                Logger.getLogger(FCFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            if (flag == 0) {
+                try {
+                    daofuncionario.salvar(f);
+                    JOptionPane.showMessageDialog(null, "Cliente Cadastrado com suceso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FCFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi Possível Cadastrar o Cliente");
+                }
+            } else {
+                try {
+                    f.getEndereco().setCodigo(codEndereco);
+                    daofuncionario.alterar(f);
+                    JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");
+                } catch (Exception ex) {
+                    Logger.getLogger(FCFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi Possível Alterar o Cliente");
+                }
             }
-            
-            
             
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
-    
-    private Boolean ValidarCampos(){
+    private Boolean ValidarCampos() {
         
         return true;
-    
+        
     }
-    
+
     /**
      * @param args the command line arguments
      */
