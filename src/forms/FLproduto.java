@@ -6,8 +6,12 @@
 package forms;
 
 import bazar.ProdutoDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,31 +19,33 @@ import javax.swing.table.DefaultTableModel;
  * @author andregaldino
  */
 public class FLproduto extends javax.swing.JInternalFrame {
-    
+
     List<bazar.Produto> listaProduto = new ArrayList();
+    private int codigo;
+
     /**
      * Creates new form FLproduto
      */
     public FLproduto() {
         initComponents();
+        atualizaGrid();
     }
-    
-    private void atualizaGrid(){
+
+    private void atualizaGrid() {
         bazar.ProdutoDAO daoproduto = new ProdutoDAO();
         listaProduto = daoproduto.selecionarTodos(true);
-        
+
         DefaultTableModel modelo = (DefaultTableModel) gridProduto.getModel();
         int rowCount = modelo.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
-        
-        for(bazar.Produto p : listaProduto){
-            modelo.addRow(new Object[]{p.getCodigo(),p.getNome(),p.getValorVenda()
-            ,p.getEstoque(),p.getCategoria().getCodigo()});
+
+        for (bazar.Produto p : listaProduto) {
+            modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getValorVenda(), p.getEstoque(), p.getCategoria().getNome(),p.getDescrisao()});
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,8 +70,18 @@ public class FLproduto extends javax.swing.JInternalFrame {
         });
 
         btnEditar.setText("Alterar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnRemover.setText("Deletar");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         gridProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,6 +101,11 @@ public class FLproduto extends javax.swing.JInternalFrame {
         });
         gridProduto.setMaximumSize(new java.awt.Dimension(1024, 0));
         gridProduto.setMinimumSize(new java.awt.Dimension(1024, 0));
+        gridProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gridProdutoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(gridProduto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,14 +139,48 @@ public class FLproduto extends javax.swing.JInternalFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        pack();
+        setBounds(0, 0, 870, 411);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        FCFuncionario objCadastro = new FCFuncionario();
+        FCProduto objCadastro = new FCProduto();
         objCadastro.setVisible(true);
-        this.atualizaGrid();
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        if (codigo > 0) {
+            int respostaR = JOptionPane.showConfirmDialog(this, "Deseja realmente remover o Produto ?");
+            if (respostaR == 0) {
+                try {
+                    new ProdutoDAO().deletar(new ProdutoDAO().selecionarProduto(codigo));
+                } catch (SQLException ex) {
+                    Logger.getLogger(FLproduto.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+            this.atualizaGrid();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleciona o Produto na Tabela");
+        }
+        codigo = 0;
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void gridProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridProdutoMouseClicked
+        int linhaSelecionada = gridProduto.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) gridProduto.getModel();
+        codigo = (int) modelo.getValueAt(linhaSelecionada, 0);
+    }//GEN-LAST:event_gridProdutoMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (codigo > 0) {
+            FCProduto objEditar = new FCProduto(codigo);
+            objEditar.setVisible(true);
+            this.atualizaGrid();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleciona o Produto na Tabela");
+        }
+        codigo  = 0;
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

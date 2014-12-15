@@ -33,7 +33,7 @@
               <EmptySpace min="37" pref="37" max="-2" attributes="0"/>
               <Component id="btnLimpar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,7 +46,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
                   <Component id="btnLimpar" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -109,9 +109,9 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtValorV" max="32767" attributes="0"/>
-                                      <Component id="txtEstoqueA" max="32767" attributes="0"/>
-                                      <Component id="cbCategoria" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbCategoria" pref="100" max="32767" attributes="0"/>
+                                      <Component id="txtEstoqueA" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtValorV" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnAddCategoria" min="-2" max="-2" attributes="0"/>
@@ -225,10 +225,7 @@
         <Component class="javax.swing.JComboBox" name="cbCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Categorias"/>
-                <StringItem index="1" value=" "/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
@@ -258,10 +255,13 @@
         <Property name="text" type="java.lang.String" value="Limpar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCadastrar">
       <Properties>

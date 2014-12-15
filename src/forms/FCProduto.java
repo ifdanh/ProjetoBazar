@@ -27,12 +27,15 @@ public class FCProduto extends javax.swing.JFrame {
     private int codProduto;
     public FCProduto() {
         initComponents();
+        CarregaCBcategoria();
     }
     
     public FCProduto(int codigo) {
+        flag=1;
         initComponents();
         CarregaCBcategoria();
         CarregaCampos(codigo);
+        MudarBotao();
     }
     
     private  void MudarBotao(){
@@ -100,7 +103,7 @@ public class FCProduto extends javax.swing.JFrame {
         txtEstoqueA = new javax.swing.JTextField();
         btnAddCategoria = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,8 +125,6 @@ public class FCProduto extends javax.swing.JFrame {
         jLabel5.setText("Valor de Venda :");
 
         jLabel14.setText("Categoria :");
-
-        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Categorias", " " }));
 
         jLabel3.setText("Estoque minimo :");
 
@@ -167,9 +168,9 @@ public class FCProduto extends javax.swing.JFrame {
                                             .addComponent(jLabel5))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtValorV)
+                                    .addComponent(cbCategoria, 0, 100, Short.MAX_VALUE)
                                     .addComponent(txtEstoqueA)
-                                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtValorV))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAddCategoria)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -210,7 +211,12 @@ public class FCProduto extends javax.swing.JFrame {
 
         btnLimpar.setText("Limpar");
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +238,7 @@ public class FCProduto extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(btnLimpar)
                 .addGap(26, 26, 26)
-                .addComponent(jButton2))
+                .addComponent(btnCancelar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +249,7 @@ public class FCProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCadastrar)
                     .addComponent(btnLimpar)
-                    .addComponent(jButton2)))
+                    .addComponent(btnCancelar)))
         );
 
         pack();
@@ -294,6 +300,10 @@ public class FCProduto extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -332,10 +342,10 @@ public class FCProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCategoria;
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbStatus;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
