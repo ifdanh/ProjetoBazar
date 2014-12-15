@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author dan0001
@@ -23,7 +24,8 @@ public class FCCliente extends javax.swing.JFrame {
      * Creates new form CadastroCliente
      */
     private int flag = 0;
-
+    private int codEndereco;
+    private int codCliente;
     public FCCliente() {
         initComponents();
         Calendario.setDateFormatString("yyyy-MM-dd");
@@ -47,7 +49,8 @@ public class FCCliente extends javax.swing.JFrame {
         Cliente objCliente = new Cliente();
         bazar.ClienteDAO daocliente = new ClienteDAO();
         objCliente = daocliente.selecionarCliente(codigo);
-
+        
+        codCliente = objCliente.getCodigo();
         txtNome.setText(objCliente.getNome());
         txtSobrenome.setText(objCliente.getSobrenome());
         cbGenero.setSelectedItem(objCliente.getGenero());
@@ -64,13 +67,15 @@ public class FCCliente extends javax.swing.JFrame {
             cbStatus.setSelectedItem("Inativo");
         }
 
-//        txtCep.setText(listaClientes.get(0).getEndereco().getCep());
-//        txtRua.setText(listaClientes.get(0).getEndereco().getRua());
-//        txtBairro.setText(listaClientes.get(0).getEndereco().getBairro());
-//        txtCidade.setText(listaClientes.get(0).getEndereco().getCidade());
-////        txtNumero.setText(Integer.toString(listaClientes.get(0).getEndereco().getNumero()));
-//        txtComple.setText(listaClientes.get(0).getEndereco().getComplemento());
-//        cbEstado.setSelectedItem(listaClientes.get(0).getEndereco().getEstado());
+        codEndereco = objCliente.getEndereco().getCodigo();
+
+        txtCep.setText(objCliente.getEndereco().getCep());
+        txtRua.setText(objCliente.getEndereco().getRua());
+        txtBairro.setText(objCliente.getEndereco().getBairro());
+        txtCidade.setText(objCliente.getEndereco().getCidade());
+        txtNumero.setText(objCliente.getEndereco().getNumero().toString());
+        txtComple.setText(objCliente.getEndereco().getComplemento());
+        cbEstado.setSelectedItem(objCliente.getEndereco().getEstado());
     }
 
     private Boolean ValidaCampos() {
@@ -536,6 +541,8 @@ public class FCCliente extends javax.swing.JFrame {
             } else {
 
                 try {
+                    objCliente.setCodigo(codCliente);
+                    objCliente.getEndereco().setCodigo(codEndereco);
                     daocliente.alterar(objCliente);
                     JOptionPane.showMessageDialog(null, "Cliente Alterado com Sucesso!!!");
                 } catch (Exception e) {

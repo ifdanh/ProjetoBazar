@@ -59,7 +59,7 @@ public class ClienteDAO {
         }
     }
 
-    public void alterar(Cliente cliente) {
+    public void alterar(Cliente cliente)throws SQLException{
         String sql = "UPDATE cliente set "
                 + "nome=?,"
                 + "sobrenome=?,"

@@ -7,8 +7,11 @@ package forms;
 
 import bazar.Cliente;
 import bazar.ClienteDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,36 +21,35 @@ import javax.swing.table.DefaultTableModel;
  * @author dan0001
  */
 public class FLcliente extends javax.swing.JInternalFrame {
-    
+
     List<bazar.Cliente> listaClientes = new ArrayList();
     private int codigo;
- private int linhaSelecionada; 
+
     /**
      * Creates new form Clientes
      */
     public FLcliente() {
-        
+
         initComponents();
         atualizaGrid();
-        //gridClientes.setSize(1024, 0);
-        gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
     }
-    
+
     private void atualizaGrid() {
         bazar.ClienteDAO daocliente = new ClienteDAO();
         listaClientes = daocliente.selecionarTodos();
-        
+
         DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
-        
+
         int rowCount = modelo.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
-        
+
         for (bazar.Cliente c : listaClientes) {
             modelo.addRow(new Object[]{c.getCodigo(), c.getNome(), c.getSobrenome(), c.getTelefone()});
         }
-        
+
     }
 
     /**
@@ -141,41 +143,45 @@ public class FLcliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
-        if (gridClientes.getCellSelectionEnabled()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Cliente!!!");
-            
-        } else {
+        if (codigo > 0) {
+
             FCCliente objEditar = new FCCliente(codigo);
             objEditar.setVisible(true);
-            this.atualizaGrid();
-            
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
         }
+        codigo = 0;
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void gridClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridClientesMouseClicked
-        linhaSelecionada = gridClientes.getSelectedRow();
+        int linhaSelecionada = gridClientes.getSelectedRow();
         DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
         codigo = ((Integer) modelo.getValueAt(linhaSelecionada, 0));
     }//GEN-LAST:event_gridClientesMouseClicked
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-          if (linhaSelecionada < 0) {
-            JOptionPane.showMessageDialog(null, "Selecione um Cliente!!!");
-            
+        if (codigo > 0) {
+            int respostaR = JOptionPane.showConfirmDialog(this, "Deseja Realmente Remover o Cliente ?");
+            //0 - Sim | 1 - Não | 2 - Cancelar
+            if (respostaR == 0) {
+                try {
+                    new ClienteDAO().deletar(new ClienteDAO().selecionarCliente(codigo));
+                    JOptionPane.showMessageDialog(null, "Cliente Removido com Sucesso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FLcliente.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi possivel remover o Cliente. Contate o Desenvolvedor!");
+                }
+                this.atualizaGrid();
+            }
+
         } else {
-        ClienteDAO daoCliente = new ClienteDAO();
-        Cliente objCliente = new Cliente();
-        try{
-        objCliente.setCodigo(codigo);
-        daoCliente.deletar(objCliente);
-        JOptionPane.showMessageDialog(null, "Cliente Deletado");
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        
+            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
         }
+        codigo = 0;
+                                              
+
+
     }//GEN-LAST:event_btnRemoverActionPerformed
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -187,4 +193,5 @@ public class FLcliente extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -162,7 +162,7 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
             objEditar.setVisible(true);
             this.atualizaGrid();
         } else {
-            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
+            JOptionPane.showMessageDialog(null, "Seleciona o Funcionario na Tabela");
         }
         codigo = 0;
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -174,16 +174,16 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
             if (respostaR == 0) {
                 try {
                     new FuncionarioDao().deletar(new FuncionarioDao().selecionarFuncionario(codigo));
-                    JOptionPane.showMessageDialog(null, "Cliente Removido com Sucesso");
+                    JOptionPane.showMessageDialog(null, "Funcionario Removido com Sucesso");
                 } catch (SQLException ex) {
                     Logger.getLogger(FLfuncionario.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "Não foi possivel remover o Cliente. Contate o Desenvolvedor!");
+                    JOptionPane.showMessageDialog(null, "Não foi possivel remover o Funcionario. Contate o Desenvolvedor!");
                 }
                 this.atualizaGrid();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
+            JOptionPane.showMessageDialog(null, "Seleciona o Funcionario na Tabela");
         }
         codigo = 0;
         
