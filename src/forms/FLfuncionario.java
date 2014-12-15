@@ -161,7 +161,7 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
             FCFuncionario objEditar = new FCFuncionario(codigo);
             objEditar.setVisible(true);
             this.atualizaGrid();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -177,12 +177,12 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(FLfuncionario.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, "Não foi possivel remover o Cliente. Contate o Desenvolvedor!");
-                }finally{
+                } finally {
                     this.atualizaGrid();
-                }    
+                }
             }
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
         }
     }//GEN-LAST:event_btnRemoverActionPerformed

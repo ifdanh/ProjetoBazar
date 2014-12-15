@@ -20,6 +20,7 @@ public class FCFuncionario extends javax.swing.JFrame {
     
     private int flag = 0;
     private int codEndereco;
+    private int codFuncionario;
     List<Integer> listaCargocod = new ArrayList();
 
     public FCFuncionario() {
@@ -52,6 +53,7 @@ public class FCFuncionario extends javax.swing.JFrame {
         Funcionario objFuncionario = new Funcionario();
         objFuncionario = new FuncionarioDao().selecionarFuncionario(codigo);
         
+        codFuncionario = objFuncionario.getCodigo();
         txtNome.setText(objFuncionario.getNome());
         txtSobrenome.setText(objFuncionario.getSobrenome());
         txtLogin.setText(objFuncionario.getLogin());
@@ -450,6 +452,7 @@ public class FCFuncionario extends javax.swing.JFrame {
                 }
             } else {
                 try {
+                    f.setCodigo(codFuncionario);
                     f.getEndereco().setCodigo(codEndereco);
                     daofuncionario.alterar(f);
                     JOptionPane.showMessageDialog(null, "Cliente Alterado com sucesso");

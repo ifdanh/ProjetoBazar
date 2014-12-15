@@ -5,19 +5,72 @@
  */
 package forms;
 
+import bazar.Categoria;
+import bazar.CategoriaDAO;
+import bazar.Produto;
+import bazar.ProdutoDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author andregaldino
  */
 public class FCProduto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FCProduto
-     */
+    private int flag = 0;
+    List<Integer> listaCodCategoria = new ArrayList();
+    private int codProduto;
     public FCProduto() {
         initComponents();
     }
-
+    
+    public FCProduto(int codigo) {
+        initComponents();
+        CarregaCBcategoria();
+        CarregaCampos(codigo);
+    }
+    
+    private  void MudarBotao(){
+        btnCadastrar.setText("Editar");
+    }
+    
+    private void CarregaCBcategoria(){
+        for (Categoria c : new CategoriaDAO().selecionarTodos()) {
+            cbCategoria.addItem(c.getNome());
+            listaCodCategoria.add(c.getCodigo());
+        }
+    }  
+    
+    private void CarregaCampos(int codigo){
+        Produto objP = new Produto();
+        objP = new ProdutoDAO().selecionarProduto(codigo);
+        
+        txtNome.setText(objP.getNome());
+        txtValorC.setText(objP.getValorCusto().toString());
+        txtValorV.setText(objP.getValorVenda().toString());
+        txtEstoqueA.setText(objP.getEstoque().toString());
+        txtEstoqueM.setText(objP.getEstoqueMin().toString());
+        txtDescricao.setText(objP.getDescrisao());
+        
+        if (objP.getStatus().equals(1)) {
+            cbStatus.setSelectedItem("Ativo");
+        }else{
+            cbStatus.setSelectedItem("Inativo");
+        }
+        cbCategoria.setSelectedItem(objP.getCategoria().getNome());
+        codProduto = objP.getCodigo();
+    }
+    
+    
+    private Boolean ValidaCampos(){
+     return true;   
+    }
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,6 +213,11 @@ public class FCProduto extends javax.swing.JFrame {
         jButton2.setText("Cancelar");
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,6 +248,51 @@ public class FCProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        
+        if (ValidaCampos()) {
+            Produto objP = new Produto();
+            objP.setNome(txtNome.getText());
+            objP.setValorCusto(Float.parseFloat(txtValorC.getText()));
+            objP.setValorVenda(Float.parseFloat(txtValorV.getText()));
+            objP.setEstoque(Integer.parseInt(txtEstoqueA.getText()));
+            objP.setEstoqueMin(Integer.parseInt(txtEstoqueM.getText()));
+            objP.setDescrisao(txtDescricao.getText());
+            
+            if (cbStatus.getSelectedItem().equals("Ativo")) {
+                objP.setStatus(1);
+            }else{
+                objP.setStatus(0);
+            }
+            
+            Categoria c = new Categoria();
+            
+            c.setCodigo(listaCodCategoria.get(cbCategoria.getSelectedIndex()));
+            objP.setCategoria(c);
+            
+            ProdutoDAO daoproduto = new ProdutoDAO();
+            if (flag==0) {
+                try {
+                    daoproduto.salvar(objP);
+                    JOptionPane.showMessageDialog(null, "Produto Cadastrado com suceso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FCProduto.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar o Produto");
+                }
+            }else{
+                objP.setCodigo(codProduto);
+                try {
+                    daoproduto.alterar(objP);
+                    JOptionPane.showMessageDialog(null, "Produto Alterado com suceso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(FCProduto.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Não foi possivel alterar o Produto");
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
