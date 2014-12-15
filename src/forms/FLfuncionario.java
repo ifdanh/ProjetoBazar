@@ -27,7 +27,6 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
     private void atualizaGrid() {
         bazar.FuncionarioDao daofuncionario = new FuncionarioDao();
         listaFuncionarios = daofuncionario.selecionarTodos();
-
         DefaultTableModel modelo = (DefaultTableModel) gridFuncionarios.getModel();
 
         int rowCount = modelo.getRowCount();

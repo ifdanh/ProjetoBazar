@@ -65,7 +65,6 @@ public class FCFuncionario extends javax.swing.JFrame {
         } else {
             cbStatus.setSelectedItem("Inativo");
         }
-        
         cbPerfil.setSelectedItem(objFuncionario.getCargo().getFuncao());
         
         codEndereco = objFuncionario.getEndereco().getCodigo();
