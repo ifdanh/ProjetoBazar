@@ -96,7 +96,7 @@ public class ClienteDAO {
         }
     }
 
-    public void deletar(Cliente cliente) {
+    public void deletar(Cliente cliente) throws SQLException {
         String sql = "DELETE FROM cliente WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -110,7 +110,31 @@ public class ClienteDAO {
 
     public List<Cliente> selecionarTodos() {
         List<Cliente> listac = new ArrayList();
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT "
+                + "c.codigo as ccodigo, "
+                + "c.nome as cnome, "
+                + "c.sobrenome as csnome, "
+                + "c.email as cemail, "
+                + "c.genero as cgenero, "
+                + "c.cpf as ccpf, "
+                + "c.rg as crg, "
+                + "c.nascimento as cdata, "
+                + "c.descricao as cdesc, "
+                + "c.telefone as ctelefone, "
+                + "c.celular as ccelular, "
+                + "c.status as cstatus, "
+                + "c.fk_endereco, "
+                + "e.codigo as ecodigo, "
+                + "e.rua as erua, "
+                + "e.numero as enumero, "
+                + "e.bairro as ebairro, "
+                + "e.cidade as ecidade, "
+                + "e.estado as eestado, "
+                + "e.cep as ecep, "
+                + "e.complemento as ecomp "
+                + "from cliente as c "
+                + "join endereco as e "
+                + "on e.codigo = c.fk_endereco ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);
@@ -126,12 +150,37 @@ public class ClienteDAO {
     }
 
     public Cliente selecionarCliente(int codigo) {
-        String sql = "SELECT * FROM cliente WHERE codigo = ? ";
+        String sql = "SELECT "
+                + "c.codigo as ccodigo, "
+                + "c.nome as cnome, "
+                + "c.sobrenome as csnome, "
+                + "c.email as cemail, "
+                + "c.genero as cgenero, "
+                + "c.cpf as ccpf, "
+                + "c.rg as crg, "
+                + "c.nascimento as cdata, "
+                + "c.descricao as cdesc, "
+                + "c.telefone as ctelefone, "
+                + "c.celular as ccelular, "
+                + "c.status as cstatus, "
+                + "c.fk_endereco, "
+                + "e.codigo as ecodigo, "
+                + "e.rua as erua, "
+                + "e.numero as enumero, "
+                + "e.bairro as ebairro, "
+                + "e.cidade as ecidade, "
+                + "e.estado as eestado, "
+                + "e.cep as ecep, "
+                + "e.complemento as ecomp "
+                + "from cliente as c "
+                + "join endereco as e "
+                + "on e.codigo = c.fk_endereco "
+                + "WHERE c.codigo = ?";
         Cliente objCliente = new Cliente();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codigo);
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 objCliente = populacliente(rs);
@@ -140,17 +189,67 @@ public class ClienteDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    
-            return objCliente;
+
+        return objCliente;
     }
 
     public List<Cliente> selecionarTodos(boolean ativos) {
         List<Cliente> listac = new ArrayList();
         String sql;
         if (ativos) {
-            sql = "SELECT * FROM cliente WHERE status = 1";
+            sql = "SELECT "
+                    + "c.codigo as ccodigo, "
+                    + "c.nome as cnome, "
+                    + "c.sobrenome as csnome, "
+                    + "c.email as cemail, "
+                    + "c.genero as cgenero, "
+                    + "c.cpf as ccpf, "
+                    + "c.rg as crg, "
+                    + "c.nascimento as cdata, "
+                    + "c.descricao as cdesc, "
+                    + "c.telefone as ctelefone, "
+                    + "c.celular as ccelular, "
+                    + "c.status as cstatus, "
+                    + "c.fk_endereco, "
+                    + "e.codigo as ecodigo, "
+                    + "e.rua as erua, "
+                    + "e.numero as enumero, "
+                    + "e.bairro as ebairro, "
+                    + "e.cidade as ecidade, "
+                    + "e.estado as eestado, "
+                    + "e.cep as ecep, "
+                    + "e.complemento as ecomp "
+                    + "from cliente as c "
+                    + "join endereco as e "
+                    + "on e.codigo = c.fk_endereco "
+                    + "WHERE c.status = 1 ";
         } else {
-            sql = "SELECT * FROM cliente WHERE status = 0";
+            sql = "SELECT "
+                    + "c.codigo as ccodigo, "
+                    + "c.nome as cnome, "
+                    + "c.sobrenome as csnome, "
+                    + "c.email as cemail, "
+                    + "c.genero as cgenero, "
+                    + "c.cpf as ccpf, "
+                    + "c.rg as crg, "
+                    + "c.nascimento as cdata, "
+                    + "c.descricao as cdesc, "
+                    + "c.telefone as ctelefone, "
+                    + "c.celular as ccelular, "
+                    + "c.status as cstatus, "
+                    + "c.fk_endereco, "
+                    + "e.codigo as ecodigo, "
+                    + "e.rua as erua, "
+                    + "e.numero as enumero, "
+                    + "e.bairro as ebairro, "
+                    + "e.cidade as ecidade, "
+                    + "e.estado as eestado, "
+                    + "e.cep as ecep, "
+                    + "e.complemento as ecomp "
+                    + "from cliente as c "
+                    + "join endereco as e "
+                    + "on e.codigo = c.fk_endereco "
+                    + "WHERE c.status = 0 ";
         }
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -169,18 +268,30 @@ public class ClienteDAO {
     private Cliente populacliente(ResultSet linha) {
         Cliente c = new Cliente();
         try {
-            c.setCodigo(linha.getInt("codigo"));
-            c.setNome(linha.getString("nome"));
-            c.setSobrenome(linha.getString("sobrenome"));
-            c.setGenero(linha.getString("genero"));
-            c.setCpf(linha.getString("cpf"));
-            c.setRg(linha.getString("rg"));
-            c.setEmail(linha.getString("email"));
-            c.setTelefone(linha.getString("telefone"));
-            c.setCelular(linha.getString("celular"));
-            c.setNascimento(linha.getDate("nascimento"));
-            c.setStatus(linha.getInt("status"));
-            c.setDescricao(linha.getString("descricao"));
+            c.setCodigo(linha.getInt("ccodigo"));
+            c.setNome(linha.getString("cnome"));
+            c.setSobrenome(linha.getString("csnome"));
+            c.setGenero(linha.getString("cgenero"));
+            c.setCpf(linha.getString("ccpf"));
+            c.setRg(linha.getString("crg"));
+            c.setEmail(linha.getString("cemail"));
+            c.setTelefone(linha.getString("ctelefone"));
+            c.setCelular(linha.getString("ccelular"));
+            c.setNascimento(linha.getDate("cdata"));
+            c.setStatus(linha.getInt("cstatus"));
+            c.setDescricao(linha.getString("cdesc"));
+
+            Endereco e = new Endereco();
+            e.setCodigo(linha.getInt("fk_endereco"));
+            e.setRua(linha.getString("erua"));
+            e.setBairro(linha.getString("ebairro"));
+            e.setCidade(linha.getString("ecidade"));
+            e.setEstado(linha.getString("eestado"));
+            e.setComplemento(linha.getString("ecomp"));
+            e.setCep(linha.getString("ecep"));
+            e.setNumero(linha.getInt("enumero"));
+            
+            c.setEndereco(e);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
