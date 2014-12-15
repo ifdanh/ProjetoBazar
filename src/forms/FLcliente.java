@@ -18,35 +18,36 @@ import javax.swing.table.DefaultTableModel;
  * @author dan0001
  */
 public class FLcliente extends javax.swing.JInternalFrame {
-
+    
     List<bazar.Cliente> listaClientes = new ArrayList();
     private int codigo;
-
+ private int linhaSelecionada; 
     /**
      * Creates new form Clientes
      */
     public FLcliente() {
+        
         initComponents();
         atualizaGrid();
         //gridClientes.setSize(1024, 0);
         gridClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
-
+    
     private void atualizaGrid() {
         bazar.ClienteDAO daocliente = new ClienteDAO();
         listaClientes = daocliente.selecionarTodos();
-
+        
         DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
-
+        
         int rowCount = modelo.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
-
+        
         for (bazar.Cliente c : listaClientes) {
             modelo.addRow(new Object[]{c.getCodigo(), c.getNome(), c.getSobrenome(), c.getTelefone()});
         }
-
+        
     }
 
     /**
@@ -92,6 +93,11 @@ public class FLcliente extends javax.swing.JInternalFrame {
         btnEditar.setBounds(176, 11, 160, 55);
 
         btnRemover.setText("Deletar");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRemover);
         btnRemover.setBounds(342, 11, 160, 55);
         getContentPane().add(jSeparator2);
@@ -135,23 +141,41 @@ public class FLcliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        
         if (gridClientes.getCellSelectionEnabled()) {
-
+            JOptionPane.showMessageDialog(null, "Selecione um Cliente!!!");
+            
+        } else {
             FCCliente objEditar = new FCCliente(codigo);
             objEditar.setVisible(true);
             this.atualizaGrid();
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um Cliente!!!");
+            
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void gridClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridClientesMouseClicked
-        int linhaSelecionada = gridClientes.getSelectedRow();
+        linhaSelecionada = gridClientes.getSelectedRow();
         DefaultTableModel modelo = (DefaultTableModel) gridClientes.getModel();
         codigo = ((Integer) modelo.getValueAt(linhaSelecionada, 0));
     }//GEN-LAST:event_gridClientesMouseClicked
 
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+          if (linhaSelecionada < 0) {
+            JOptionPane.showMessageDialog(null, "Selecione um Cliente!!!");
+            
+        } else {
+        ClienteDAO daoCliente = new ClienteDAO();
+        Cliente objCliente = new Cliente();
+        try{
+        objCliente.setCodigo(codigo);
+        daoCliente.deletar(objCliente);
+        JOptionPane.showMessageDialog(null, "Cliente Deletado");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
