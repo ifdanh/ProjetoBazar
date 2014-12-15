@@ -83,7 +83,7 @@ public class CategoriaDAO {
             ResultSet rs = ps.executeQuery(sql);
 
             while (rs.next()) {
-                listac.add((Categoria) rs);
+                listac.add(populacategoria(rs));
             }
 
         } catch (SQLException e) {
