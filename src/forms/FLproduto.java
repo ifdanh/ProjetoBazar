@@ -62,6 +62,9 @@ public class FLproduto extends javax.swing.JInternalFrame {
         gridProduto = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
 
+        setClosable(true);
+        setResizable(true);
+
         btnNovo.setText("Cadastrar");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

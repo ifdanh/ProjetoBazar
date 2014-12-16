@@ -57,6 +57,8 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         gridFuncionarios = new javax.swing.JTable();
 
+        setClosable(true);
+
         btnNovo.setText("Cadastrar");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

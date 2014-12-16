@@ -126,6 +126,11 @@ public class FLclienteVenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(gridClientesV);
 
         btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
 
         bntCancelar.setText("Cancelar");
         bntCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -207,6 +212,10 @@ public class FLclienteVenda extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_gridClientesVMouseClicked
+
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        
+    }//GEN-LAST:event_btnSelecionarActionPerformed
     
       private void atualizaGrid() {
         bazar.ClienteDAO daocliente = new ClienteDAO();
