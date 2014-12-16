@@ -148,7 +148,7 @@ public class FLcliente extends javax.swing.JInternalFrame {
             FCCliente objEditar = new FCCliente(codigo);
             objEditar.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(null, "Seleciona o Cliente na Tabela");
+            JOptionPane.showMessageDialog(null, "Selecionar o Cliente na Tabela");
         }
         codigo = 0;
     }//GEN-LAST:event_btnEditarActionPerformed
