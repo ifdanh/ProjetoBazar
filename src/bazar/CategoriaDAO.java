@@ -24,7 +24,7 @@ public class CategoriaDAO {
         con = FabricaConexao.pegaConexao();
     }
 
-    public void salvar(Categoria categoria) {
+    public void salvar(Categoria categoria) throws SQLException{
         String sql = "INSERT INTO categoria ("
                 + "nome,"
                 + "status)"
@@ -41,7 +41,7 @@ public class CategoriaDAO {
 
     }
 
-    public void alterar(Categoria categoria) {
+    public void alterar(Categoria categoria) throws SQLException {
 
         String sql = "UPDATE categoria SET "
                 + "nome=?,"
@@ -61,7 +61,7 @@ public class CategoriaDAO {
 
     }
 
-    public void deletar(Categoria categoria) {
+    public void deletar(Categoria categoria) throws SQLException{
 
         String sql = "DELETE FROM categoria WHERE codigo=?";
 

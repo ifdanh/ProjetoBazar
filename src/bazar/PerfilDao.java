@@ -24,7 +24,7 @@ public class PerfilDao {
         this.con = FabricaConexao.pegaConexao();
     }
     
-    public void salvar(Perfil   perfil){
+    public void salvar(Perfil   perfil) throws SQLException{
         String sql = "INSERT INTO perfil (funcao, status)"
                 + " VALUES (?,?)";
         try {
@@ -38,7 +38,7 @@ public class PerfilDao {
         }
     }
     
-    public void alterar(Perfil perfil){
+    public void alterar(Perfil perfil) throws SQLException{
         String sql = "UPDATE perfil set "
                 + "funcao = ?,"
                 + "status = ?"
@@ -55,7 +55,7 @@ public class PerfilDao {
         }
     }
     
-    public void deletar(Perfil perfil){
+    public void deletar(Perfil perfil) throws SQLException{
         String sql = "DELETE FROM perfil WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

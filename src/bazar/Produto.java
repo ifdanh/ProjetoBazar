@@ -16,7 +16,7 @@ public class Produto {
     private Integer estoque;
     private Integer status;
     private String nome;
-    private String descrisao;
+    private String descricao;
     private Float valorCusto;
     private Float valorVenda;
     private Categoria categoria;
@@ -98,17 +98,17 @@ public class Produto {
     }
 
     /**
-     * @return the descrisao
+     * @return the descricao
      */
-    public String getDescrisao() {
-        return descrisao;
+    public String getDescricao() {
+        return descricao;
     }
 
     /**
-     * @param descrisao the descrisao to set
+     * @param descricao the descricao to set
      */
-    public void setDescrisao(String descrisao) {
-        this.descrisao = descrisao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     /**

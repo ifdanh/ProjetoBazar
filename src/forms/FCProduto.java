@@ -58,7 +58,7 @@ public class FCProduto extends javax.swing.JFrame {
         txtValorV.setText(objP.getValorVenda().toString());
         txtEstoqueA.setText(objP.getEstoque().toString());
         txtEstoqueM.setText(objP.getEstoqueMin().toString());
-        txtDescricao.setText(objP.getDescrisao());
+        txtDescricao.setText(objP.getDescricao());
         
         if (objP.getStatus().equals(1)) {
             cbStatus.setSelectedItem("Ativo");
@@ -106,7 +106,7 @@ public class FCProduto extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
@@ -126,11 +126,22 @@ public class FCProduto extends javax.swing.JFrame {
 
         jLabel14.setText("Categoria :");
 
+        cbCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbCategoriaMouseClicked(evt);
+            }
+        });
+
         jLabel3.setText("Estoque minimo :");
 
         jLabel6.setText("Estoque Atual :");
 
         btnAddCategoria.setText("Add");
+        btnAddCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCategoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -264,7 +275,7 @@ public class FCProduto extends javax.swing.JFrame {
             objP.setValorVenda(Float.parseFloat(txtValorV.getText()));
             objP.setEstoque(Integer.parseInt(txtEstoqueA.getText()));
             objP.setEstoqueMin(Integer.parseInt(txtEstoqueM.getText()));
-            objP.setDescrisao(txtDescricao.getText());
+            objP.setDescricao(txtDescricao.getText());
             
             if (cbStatus.getSelectedItem().equals("Ativo")) {
                 objP.setStatus(1);
@@ -301,8 +312,16 @@ public class FCProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAddCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCategoriaActionPerformed
+        new FCcategoria().setVisible(true);
+    }//GEN-LAST:event_btnAddCategoriaActionPerformed
+
+    private void cbCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbCategoriaMouseClicked
+       this.CarregaCBcategoria();
+    }//GEN-LAST:event_cbCategoriaMouseClicked
 
     /**
      * @param args the command line arguments

@@ -42,7 +42,7 @@ public class FLproduto extends javax.swing.JInternalFrame {
         }
 
         for (bazar.Produto p : listaProduto) {
-            modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getValorVenda(), p.getEstoque(), p.getCategoria().getNome(),p.getDescrisao()});
+            modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getValorVenda(), p.getEstoque(), p.getCategoria().getNome(),p.getDescricao()});
         }
     }
 

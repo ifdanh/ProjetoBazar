@@ -5,7 +5,7 @@
  */
 package forms;
 
-import bazar.Perfil;
+import bazar.Categoria;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author andregaldino
  */
-public class FCPerfil extends javax.swing.JFrame {
+public class FCcategoria extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadastroPerfil
+     * Creates new form FCcategoria
      */
-    public FCPerfil() {
+    public FCcategoria() {
         initComponents();
     }
 
@@ -35,7 +35,7 @@ public class FCPerfil extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtFuncao = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         cbStatus = new javax.swing.JComboBox();
         btnCadastrar = new javax.swing.JButton();
@@ -43,9 +43,9 @@ public class FCPerfil extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Perfil"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Categoria"));
 
-        jLabel1.setText("Função :");
+        jLabel1.setText("Nome :");
 
         jLabel2.setText("Status :");
 
@@ -78,7 +78,7 @@ public class FCPerfil extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFuncao)
+                            .addComponent(txtNome)
                             .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -93,7 +93,7 @@ public class FCPerfil extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -102,7 +102,7 @@ public class FCPerfil extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,29 +125,29 @@ public class FCPerfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-
-        Perfil objP = new Perfil();
-        objP.setFuncao(txtFuncao.getText());
-        if (cbStatus.getSelectedItem().toString().equals("Ativo")) {
-            objP.setStatus(1);
-        }else{
-            objP.setStatus(0);
-        }
-
-        try {
-            new bazar.PerfilDao().salvar(objP);
-            JOptionPane.showMessageDialog(this, "Cargo cadastrado com sucesso");
-        } catch (SQLException ex) {
-            Logger.getLogger(FCcategoria.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Não foi possivel cadastrar o Cargo");
-        }
-
-    }//GEN-LAST:event_btnCadastrarActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        
+        Categoria objC = new Categoria();
+        objC.setNome(txtNome.getText());
+        if (cbStatus.getSelectedItem().toString().equals("Ativo")) {
+            objC.setStatus(1);
+        }else{
+            objC.setStatus(0);
+        }
+        
+        try {
+            new bazar.CategoriaDAO().salvar(objC);
+            JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger(FCcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Não foi possivel cadastrar a categoria");
+        }
+        
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,21 +166,20 @@ public class FCPerfil extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FCPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCcategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FCPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCcategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FCPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCcategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FCPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FCcategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FCPerfil().setVisible(true);
+                new FCcategoria().setVisible(true);
             }
         });
     }
@@ -192,6 +191,6 @@ public class FCPerfil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtFuncao;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

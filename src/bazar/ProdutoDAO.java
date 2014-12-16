@@ -25,8 +25,8 @@ public class ProdutoDAO {
     }
 
     public void salvar(Produto produto)throws SQLException {
-        String sql = "INSERT INTO produto (nome,valorcusto,valorvenda,estoquemin,estoque,status,fk_categoria)"
-                + " VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO produto (nome,valorcusto,valorvenda,estoquemin,estoque,status,descricao,fk_categoria)"
+                + " VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, produto.getNome());
@@ -35,7 +35,8 @@ public class ProdutoDAO {
             ps.setInt(4, produto.getEstoqueMin());
             ps.setInt(5, produto.getEstoque());
             ps.setInt(6, produto.getStatus());
-            ps.setInt(7, produto.getCategoria().getCodigo());
+            ps.setString(7, produto.getDescricao());
+            ps.setInt(8, produto.getCategoria().getCodigo());
             ps.execute();
 
         } catch (SQLException e) {
@@ -51,6 +52,7 @@ public class ProdutoDAO {
                 + "estoquemin= ?, "
                 + "estoque= ?, "
                 + "status= ?, "
+                + "descricao = ?"
                 + "fk_categoria = ? WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -60,8 +62,9 @@ public class ProdutoDAO {
             ps.setInt(4, produto.getEstoqueMin());
             ps.setInt(5, produto.getEstoque());
             ps.setInt(6, produto.getStatus());
-            ps.setInt(7, produto.getCategoria().getCodigo());
-            ps.setInt(8, produto.getCodigo());
+            ps.setString(7, produto.getDescricao());
+            ps.setInt(8, produto.getCategoria().getCodigo());
+            ps.setInt(9, produto.getCodigo());
             ps.execute();
 
         } catch (SQLException e) {
@@ -163,6 +166,41 @@ public class ProdutoDAO {
         }
         return listap;
     }
+    
+    public List<Produto> selecionarProdutosNomeCategoria(String nome, int codigocat) {
+        List<Produto> listap = new ArrayList();
+        String sql = "SELECT "
+                + "p.codigo AS pcodigo, "
+                + "p.nome AS pnome, "
+                + "p.valorcusto AS pvcusto, "
+                + "p.valorvenda AS pvvenda, "
+                + "p.estoquemin AS pestoquem, "
+                + "p.estoque AS pestoque, "
+                + "p.status AS pstatus, "
+                + "p.descricao AS pdesc, "
+                + "c.codigo AS ccodigo, "
+                + "c.nome AS cnome, "
+                + "c.status AS cstatus "
+                + "FROM produto AS p "
+                + "JOIN categoria AS c "
+                + "ON p.fk_categoria = c.codigo "
+                + "WHERE p.nome LIKE ? AND c.codigo = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,"%" + nome + "%");
+            ps.setInt(2, codigocat);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listap.add(populaproduto(rs));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listap;
+    }
+    
 
     public Produto selecionarProduto(int codigo) {
         Produto p = new Produto();
@@ -208,7 +246,7 @@ public class ProdutoDAO {
             p.setEstoqueMin(linha.getInt("pestoquem"));
             p.setEstoque(linha.getInt("pestoque"));
             p.setStatus(linha.getInt("pstatus"));
-            p.setDescrisao(linha.getString("pdesc"));
+            p.setDescricao(linha.getString("pdesc"));
             Categoria c = new Categoria();
             c.setCodigo(linha.getInt("ccodigo"));
             c.setNome(linha.getString("cnome"));

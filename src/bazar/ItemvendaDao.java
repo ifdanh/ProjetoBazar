@@ -28,7 +28,7 @@ public class ItemvendaDao {
                 + " VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDouble(1, item.getVelorProduto());
+            ps.setDouble(1, item.getValorProduto());
             ps.setInt(2, item.getQuantidade());
             ps.setInt(3, codVenda);
             ps.setInt(4, item.getItem().getCodigo());
@@ -46,7 +46,7 @@ public class ItemvendaDao {
                 + "WHERE fk_venda = ? AND fk_produto = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDouble(1, item.getVelorProduto());
+            ps.setDouble(1, item.getValorProduto());
             ps.setInt(2, item.getQuantidade());
             ps.setInt(3, item.getPedido().getCodigo());
             ps.setInt(4, item.getItem().getCodigo());
@@ -91,7 +91,7 @@ public class ItemvendaDao {
        Itemvenda i = new Itemvenda();
        try {
             i.setQuantidade(linha.getInt("quantidade"));
-            i.setVelorProduto(linha.getDouble("valorProduto"));
+            i.setValorProduto(linha.getDouble("valorProduto"));
 
             Produto p = new Produto();
             p.setCodigo(linha.getInt("fk_produto"));

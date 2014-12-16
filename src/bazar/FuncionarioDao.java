@@ -134,7 +134,7 @@ public class FuncionarioDao {
             "on e.codigo = f.fk_endereco  " +
             "join perfil as p " +
             "on f.fk_perfil = p.codigo " +
-            "WHERE fstatus = 1" ;
+            "WHERE f.status = 1" ;
         }else{
            sql = "SELECT f.codigo as fcodigo, " +
             "f.nome as fnome, " +
@@ -163,7 +163,7 @@ public class FuncionarioDao {
             "on e.codigo = f.fk_endereco  " +
             "join perfil as p " +
             "on f.fk_perfil = p.codigo " +
-            "WHERE fstatus = 0" ;
+            "WHERE f.status = 0" ;
         }
         try {
                 PreparedStatement ps = con.prepareStatement(sql);

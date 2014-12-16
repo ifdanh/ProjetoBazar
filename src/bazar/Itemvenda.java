@@ -10,10 +10,11 @@ package bazar;
  * @author pc138587
  */
 public class Itemvenda {
-    private Double velorProduto;
+    private Double valorProduto;
     private Integer quantidade;
     private Produto item;
     private Venda pedido;
+    private Double subTotal;
 
     public Itemvenda(){
         this.item = new Produto();
@@ -24,15 +25,15 @@ public class Itemvenda {
     /**
      * @return the velorProduto
      */
-    public Double getVelorProduto() {
-        return velorProduto;
+    public Double getValorProduto() {
+        return valorProduto;
     }
 
     /**
-     * @param velorProduto the velorProduto to set
+     * @param valorProduto the velorProduto to set
      */
-    public void setVelorProduto(Double velorProduto) {
-        this.velorProduto = velorProduto;
+    public void setValorProduto(Double valorProduto) {
+        this.valorProduto = valorProduto;
     }
 
     /**
@@ -75,6 +76,20 @@ public class Itemvenda {
      */
     public void setPedido(Venda pedido) {
         this.pedido = pedido;
+    }
+
+    /**
+     * @return the subTotal
+     */
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    /**
+     * @param subTotal the subTotal to set
+     */
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
     }
     
 }

@@ -35,7 +35,7 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
         }
 
         for (bazar.Funcionario f : listaFuncionarios) {
-            modelo.addRow(new Object[]{f.getCodigo(), f.getNome(), f.getLogin(), f.getTelefone()
+            modelo.addRow(new Object[]{f.getCodigo(), f.getNome() + f.getSobrenome(), f.getLogin(), f.getTelefone(), f.getCelular(), f.getCargo().getFuncao()
             });
         }
 
@@ -83,11 +83,11 @@ public class FLfuncionario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nome", "Login", "Telefone"
+                "Codigo", "Nome", "Login", "Telefone", "Celular", "Cargo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -47,7 +47,7 @@ public class FLcliente extends javax.swing.JInternalFrame {
         }
 
         for (bazar.Cliente c : listaClientes) {
-            modelo.addRow(new Object[]{c.getCodigo(), c.getNome(), c.getSobrenome(), c.getTelefone()});
+            modelo.addRow(new Object[]{c.getCodigo(), c.getNome() + c.getSobrenome(), c.getTelefone(), c.getCelular(), c.getEmail()});
         }
 
     }
@@ -110,11 +110,11 @@ public class FLcliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nome", "Sobrenome", "Telefone"
+                "Codigo", "Nome", "Telefone", "Celular", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
